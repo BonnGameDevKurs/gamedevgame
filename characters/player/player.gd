@@ -22,3 +22,19 @@ func _physics_process(_delta):
 	
 	# Die Funktion move_and_slide() berechnet für euch wie sich der Charakter bewegen muss, anhand dem Richtungsvektor velocity
 	move_and_slide()
+	
+	
+	push_stuff()
+
+########################################################### For Later ###########################################
+
+const PUSH_FORCE := 10
+const MIN_PUSH_FORCE := 10
+
+func push_stuff() -> void:
+	for i in get_slide_collision_count():
+		var c = get_slide_collision(i)
+		if c. get_collider() is RigidBody2D:
+			var push_force = (PUSH_FORCE * velocity.length() / SPEED) + MIN_PUSH_FORCE
+			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
+		

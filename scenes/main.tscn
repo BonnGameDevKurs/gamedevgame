@@ -8,6 +8,12 @@
 radius = 51.66
 height = 144.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n51sb"]
+size = Vector2(1216, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hmnpq"]
+size = Vector2(18, 1170)
+
 [node name="Main" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -36,3 +42,29 @@ texture = ExtResource("3_5a437")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Keg2"]
 scale = Vector2(0.103, 0.103)
 shape = SubResource("CapsuleShape2D_oymgl")
+
+[node name="Grenzen" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Grenzen"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grenzen/StaticBody2D"]
+position = Vector2(608, -5)
+shape = SubResource("RectangleShape2D_n51sb")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Grenzen"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grenzen/StaticBody2D2"]
+position = Vector2(616, 1152)
+shape = SubResource("RectangleShape2D_n51sb")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Grenzen"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grenzen/StaticBody2D3"]
+position = Vector2(-1, 575)
+shape = SubResource("RectangleShape2D_hmnpq")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Grenzen"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grenzen/StaticBody2D4"]
+position = Vector2(1216, 568)
+shape = SubResource("RectangleShape2D_hmnpq")
