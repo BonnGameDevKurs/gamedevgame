@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://h164m4d5wn4j"]
+
+[ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="1_6gmmr"]
+[ext_resource type="Texture2D" uid="uid://up5l8w4nks71" path="res://assets/Background.png" id="2_l57ke"]
+[ext_resource type="Texture2D" uid="uid://b1kc1ujkcgs2l" path="res://assets/keg.png" id="3_5a437"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oymgl"]
+radius = 51.66
+height = 144.0
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_6gmmr")]
+z_index = 1
+position = Vector2(128, 128)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_top = 0
+limit_right = 1152
+limit_bottom = 1152
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(607.5, 574.75)
+scale = Vector2(9.50781, 9.01953)
+texture = ExtResource("2_l57ke")
+metadata/_edit_group_ = true
+
+[node name="Keg2" type="RigidBody2D" parent="."]
+position = Vector2(386.61, 223.98)
+gravity_scale = 0.0
+
+[node name="Sprite2D2" type="Sprite2D" parent="Keg2"]
+position = Vector2(2.39999, -8.685)
+scale = Vector2(9.75, 9.25)
+texture = ExtResource("3_5a437")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Keg2"]
+position = Vector2(-0.339996, 0)
+shape = SubResource("CapsuleShape2D_oymgl")
