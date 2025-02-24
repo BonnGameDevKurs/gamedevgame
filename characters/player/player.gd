@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 
-const SPEED = 300 # Wie schnell sich euer Charakter bewegen soll
+const SPEED = 30 # Wie schnell sich euer Charakter bewegen soll
 
 # Diese funktion wird aufgerufen, sobald die Scene (Hier euer Charakter) gerufen wird
 func _ready():
