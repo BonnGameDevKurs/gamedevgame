@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://h164m4d5wn4j"]
+[gd_scene load_steps=7 format=3 uid="uid://h164m4d5wn4j"]
 
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="1_6gmmr"]
 [ext_resource type="Texture2D" uid="uid://up5l8w4nks71" path="res://assets/Background.png" id="2_l57ke"]
@@ -8,16 +8,23 @@
 radius = 51.66
 height = 144.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n51sb"]
+size = Vector2(1216, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hmnpq"]
+size = Vector2(18, 1170)
+
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_6gmmr")]
 z_index = 1
 position = Vector2(128, 128)
+motion_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 limit_left = 0
 limit_top = 0
-limit_right = 1152
+limit_right = 1216
 limit_bottom = 1152
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -29,9 +36,10 @@ metadata/_edit_group_ = true
 
 [node name="Keg2" type="RigidBody2D" parent="."]
 position = Vector2(386.61, 223.98)
+mass = 13.895
 gravity_scale = 0.0
 
-[node name="Sprite2D2" type="Sprite2D" parent="Keg2"]
+[node name="Fass" type="Sprite2D" parent="Keg2"]
 position = Vector2(2.39999, -8.685)
 scale = Vector2(9.75, 9.25)
 texture = ExtResource("3_5a437")
@@ -39,3 +47,29 @@ texture = ExtResource("3_5a437")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Keg2"]
 position = Vector2(-0.339996, 0)
 shape = SubResource("CapsuleShape2D_oymgl")
+
+[node name="Grenzen" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Grenzen"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grenzen/StaticBody2D"]
+position = Vector2(608, -5)
+shape = SubResource("RectangleShape2D_n51sb")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Grenzen"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grenzen/StaticBody2D2"]
+position = Vector2(616, 1152)
+shape = SubResource("RectangleShape2D_n51sb")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Grenzen"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grenzen/StaticBody2D3"]
+position = Vector2(-1, 575)
+shape = SubResource("RectangleShape2D_hmnpq")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Grenzen"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grenzen/StaticBody2D4"]
+position = Vector2(1216, 568)
+shape = SubResource("RectangleShape2D_hmnpq")
