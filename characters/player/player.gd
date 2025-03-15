@@ -1,40 +1,110 @@
 class_name Player
 extends CharacterBody2D
 
+# Define states using an enumeration
+enum State { STANDING, RUNNING }
+enum _Direction {UP, DOWN, LEFT, RIGHT}
 
-const SPEED = 30 # Wie schnell sich euer Charakter bewegen soll
-
-# Diese funktion wird aufgerufen, sobald die Scene (Hier euer Charakter) gerufen wird
-func _ready():
-	
-	motion_mode = MOTION_MODE_FLOATING # motion_mode gibt für move_and_slide() an, welche Art von Kollisionen für euer Spiel relevant sind. Es wird zwischen Side scrollern und Top down unterschieden.
-
-# _physics_process ist eine funktion, welche jeden "Physics frame" aufgerufen wird
-# Bitte ignoriert erstmal _delta
-func _physics_process(_delta):
-	
-	# Input ist ein Objekt, welches euch zugriff auf Spielereingaben gibt
-	# Die Funktion get_vector gibt euch einen Vector 2d zurück wobei:
-	# get_vector(negative_x: StringName, positive_x: StringName, negative_y: StringName, positive_y: StringName, deadzone: float = -1.0)
-	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
-	velocity = direction * SPEED # Vektor Multiplikation. velocity ist dabei eine globale variable
-	
-	# Die Funktion move_and_slide() berechnet für euch wie sich der Charakter bewegen muss, anhand dem Richtungsvektor velocity
-	move_and_slide()
-	
-	
-	push_stuff()
-
-########################################################### For Later ###########################################
-
+# Player constants
 const PUSH_FORCE := 10
 const MIN_PUSH_FORCE := 10
+const SPEED = 30
+
+@export var bullet_speed = 100
+@export var fire_rate = 0.2
+var can_fire = true
+
+var bullet = preload("res://characters/player/patrone.tscn")
+
+# Current state of the player
+var current_state = State.STANDING
+var _last_direction = _Direction.DOWN
+
+func _ready():
+	motion_mode = MOTION_MODE_FLOATING
+	$AnimatedSprite2D.play("idle_down")
+
+func _physics_process(_delta):
+	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+
+	if direction.x > 0:
+		current_state = State.RUNNING
+		_last_direction = _Direction.RIGHT
+		$AnimatedSprite2D.play("run_side")
+		$AnimatedSprite2D.flip_h = false  # Ensure the sprite is not flipped
+	elif direction.x < 0:
+		current_state = State.RUNNING
+		_last_direction = _Direction.LEFT
+		$AnimatedSprite2D.play("run_side")
+		$AnimatedSprite2D.flip_h = true  # Flip the sprite for left movement
+	elif direction.y > 0:
+		current_state = State.RUNNING
+		_last_direction = _Direction.DOWN
+		$AnimatedSprite2D.play("run_down")
+	elif direction.y < 0:
+		current_state = State.RUNNING
+		_last_direction = _Direction.UP
+		$AnimatedSprite2D.play("run_up")
+		
+	else:
+		current_state = State.STANDING
+		if _last_direction == _Direction.DOWN:
+			$AnimatedSprite2D.play("idle_down")  # Change to your idle animation
+		elif _last_direction == _Direction.UP:
+			$AnimatedSprite2D.play("idle_up")
+		elif _last_direction == _Direction.RIGHT:
+			$AnimatedSprite2D.play("idle_side")
+			$AnimatedSprite2D.flip_h = false
+		elif _last_direction == _Direction.LEFT:
+			$AnimatedSprite2D.play("idle_side")
+			$AnimatedSprite2D.flip_h = true
+
+	velocity = direction * SPEED
+	move_and_slide()
+	push_stuff()
+	fire_bullet()
 
 func push_stuff() -> void:
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
-		if c. get_collider() is RigidBody2D:
+		if c.get_collider() is RigidBody2D:
 			var push_force = (PUSH_FORCE * velocity.length() / SPEED) + MIN_PUSH_FORCE
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
-		
+
+func fire_bullet() -> void:
+	if Input.is_action_pressed("fire_up") and can_fire:
+		var bullet_instance = bullet.instantiate()
+		bullet_instance.position = $Shoot_positions/Bullet_pos_up.global_position
+		bullet_instance.rotation_degrees = 0
+		bullet_instance.apply_impulse(Vector2(0, -bullet_speed), bullet_instance.global_position)
+		get_tree().get_root().add_child(bullet_instance)
+		can_fire = false
+		await get_tree().create_timer(fire_rate).timeout
+		can_fire = true
+	if Input.is_action_pressed("fire_down") and can_fire:
+		var bullet_instance = bullet.instantiate()
+		bullet_instance.position = $Shoot_positions/Bullet_pos_down.global_position
+		bullet_instance.rotation_degrees = 0
+		bullet_instance.apply_impulse(Vector2(0, bullet_speed), bullet_instance.global_position)
+		get_tree().get_root().add_child(bullet_instance)
+		can_fire = false
+		await get_tree().create_timer(fire_rate).timeout
+		can_fire = true
+	if Input.is_action_pressed("fire_left") and can_fire:
+		var bullet_instance = bullet.instantiate()
+		bullet_instance.position = $Shoot_positions/Bullet_pos_left.global_position
+		bullet_instance.rotation_degrees = 0
+		bullet_instance.apply_impulse(Vector2(-bullet_speed, 0), bullet_instance.global_position)
+		get_tree().get_root().add_child(bullet_instance)
+		can_fire = false
+		await get_tree().create_timer(fire_rate).timeout
+		can_fire = true
+	if Input.is_action_pressed("fire_right") and can_fire:
+		var bullet_instance = bullet.instantiate()
+		bullet_instance.position = $Shoot_positions/Bullet_pos_right.global_position
+		bullet_instance.rotation_degrees = 0
+		bullet_instance.apply_impulse(Vector2(bullet_speed, 0), bullet_instance.global_position)
+		get_tree().get_root().add_child(bullet_instance)
+		can_fire = false
+		await get_tree().create_timer(fire_rate).timeout
+		can_fire = true
