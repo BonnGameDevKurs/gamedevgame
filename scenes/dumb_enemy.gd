@@ -25,7 +25,7 @@ func _on_Hitbox_body_entered(body):
 		update_health(-body.dmg)
 
 func _physics_process(_delta: float) -> void:
-	if (target.position - position).length() < 50:
+	if (target.position - position).length() < 250:
 		var dir = (target.position - position).normalized()
 		velocity = dir * speed
 		$Sprite2D.look_at(target.position)
