@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dplnmxkaqw7qv"]
+[gd_scene load_steps=11 format=4 uid="uid://dplnmxkaqw7qv"]
 
 [ext_resource type="TileSet" uid="uid://o2pw3q66ur8l" path="res://assets/tilesets/grass_water_dirt/grass_water_dirt_tileset.tres" id="1_g3ifd"]
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="2_w37o8"]
@@ -45,10 +45,6 @@ _data = {
 &"RESET": SubResource("Animation_fcv5n")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oymgl"]
-radius = 56.6666
-height = 144.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h61rw"]
 bg_color = Color(0.192157, 0.2, 0.219608, 0.772549)
 corner_radius_top_left = 3
@@ -84,16 +80,11 @@ script = ExtResource("3_2fv6y")
 
 [node name="Keg2" type="RigidBody2D" parent="."]
 position = Vector2(131, 8)
-scale = Vector2(3, 3)
 gravity_scale = 0.0
 
 [node name="Sprite2D2" type="Sprite2D" parent="Keg2"]
+scale = Vector2(3, 3)
 texture = ExtResource("4_r7mew")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Keg2"]
-position = Vector2(-0.666667, 1.33333)
-scale = Vector2(0.1, 0.1)
-shape = SubResource("CapsuleShape2D_oymgl")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

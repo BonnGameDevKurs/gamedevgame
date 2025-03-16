@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://c666rt15y1p67" path="res://misc/kill_counter_label.gd" id="8_tipki"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oymgl"]
-radius = 56.6666
-height = 144.0
+radius = 14.0
+height = 44.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o6xl0"]
 radius = 26.6667
@@ -45,15 +45,14 @@ offset_bottom = -18.0
 
 [node name="Keg2" type="RigidBody2D" parent="."]
 position = Vector2(317, 56)
-scale = Vector2(3, 3)
 gravity_scale = 0.0
 
 [node name="Sprite2D2" type="Sprite2D" parent="Keg2"]
+scale = Vector2(3, 3)
 texture = ExtResource("3_5a437")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Keg2"]
-position = Vector2(-0.666667, 1.33333)
-scale = Vector2(0.1, 0.1)
+position = Vector2(-2, 4)
 shape = SubResource("CapsuleShape2D_oymgl")
 
 [node name="Dumb_Enemy" type="CharacterBody2D" parent="." node_paths=PackedStringArray("health_bar")]
