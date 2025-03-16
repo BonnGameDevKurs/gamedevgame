@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wm861ch1vv05"
-path="res://.godot/imported/tiny_town_tilemap.png-fc3f393b80ce22d576ca22c631b6669c.ctex"
+uid="uid://bist5dnvdc7se"
+path="res://.godot/imported/wusel-spritesheet.png-05e7b469633a8b3728ba79d8025dda6b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiny_town_tilemap.png"
-dest_files=["res://.godot/imported/tiny_town_tilemap.png-fc3f393b80ce22d576ca22c631b6669c.ctex"]
+source_file="res://assets/player/wusel-spritesheet.png"
+dest_files=["res://.godot/imported/wusel-spritesheet.png-05e7b469633a8b3728ba79d8025dda6b.ctex"]
 
 [params]
 

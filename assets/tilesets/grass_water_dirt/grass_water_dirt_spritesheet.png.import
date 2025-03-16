@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4k0l44a77dwo"
-path="res://.godot/imported/tiny_battle_tilemap.png-e41f094bcd7142478670b8bfe74e02b6.ctex"
+uid="uid://deokit371f66j"
+path="res://.godot/imported/grass_water_dirt_spritesheet.png-e39f468da841f517de8c4899c9ec003b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiny_battle_tilemap.png"
-dest_files=["res://.godot/imported/tiny_battle_tilemap.png-e41f094bcd7142478670b8bfe74e02b6.ctex"]
+source_file="res://assets/tilesets/grass_water_dirt/grass_water_dirt_spritesheet.png"
+dest_files=["res://.godot/imported/grass_water_dirt_spritesheet.png-e39f468da841f517de8c4899c9ec003b.ctex"]
 
 [params]
 
