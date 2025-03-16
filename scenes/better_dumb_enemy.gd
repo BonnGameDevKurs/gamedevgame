@@ -17,6 +17,5 @@ func _physics_process(_delta: float) -> void:
 func _on_detection_radius_body_entered(body: Node2D) -> void:
 	detected = true
 
-
 func _on_detection_radius_body_exited(body: Node2D) -> void:
 	detected = false
