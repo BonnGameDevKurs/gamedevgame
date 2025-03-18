@@ -212,6 +212,7 @@ animations = [{
 radius = 8.0
 
 [node name="Player" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_q3uxj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
