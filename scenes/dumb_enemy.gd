@@ -1,16 +1,18 @@
 extends CharacterBody2D
-@onready var target = $"../Player"
-var speed = 10
 
-# Health and HealthBar
-var health: int
+const SPEED = 10
+
 @export var max_health: int = 100
 @export var health_bar: ProgressBar
+var health: int
+
+@onready var target = $"../Player"
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Connect the body_entered signal to the _on_Hitbox_body_entered function
-	$Area2D.body_entered.connect(_on_Hitbox_body_entered)
+	$HurtBox.body_entered.connect(_on_hurtbox_body_entered)
 
 	# Set up the players resources
 	health = max_health
@@ -18,18 +20,14 @@ func _ready():
 	# Set up the health bar
 	health_bar.init(self)
 
-# Function to handle collision detection
-func _on_Hitbox_body_entered(body):
-	# Check if the entering body is in the bullet group
-	if body.is_in_group("Bullet"):
-		update_health(-body.dmg)
 
 func _physics_process(_delta: float) -> void:
 	if (target.position - position).length() < 250:
 		var dir = (target.position - position).normalized()
-		velocity = dir * speed
-		$Sprite2D.look_at(target.position)
+		velocity = dir * SPEED
+		#$Sprite2D.look_at(target.position)
 		move_and_slide()
+
 
 func update_health(addend: int):
 	# Apply healing/damage to the enemy
@@ -49,3 +47,10 @@ func update_health(addend: int):
 	
 	# Update the enemy's healthbar	
 	health_bar.update()
+
+
+# Function to handle collision detection
+func _on_hurtbox_body_entered(body):
+	# Check if the entering body is in the bullet group
+	if body.is_in_group("Bullet"):
+		update_health(-body.dmg)
