@@ -22,7 +22,6 @@ func _physics_process(_delta: float) -> void:
 func _on_detection_radius_area_entered(area: Node2D) -> void:
 	if area.name == "PlayerHurtBox":
 		detected = true
-	print("here")
 
 func _on_detection_radius_area_exited(area: Node2D) -> void:
 	if area.name == "PlayerHurtBox":
