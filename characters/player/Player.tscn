@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bist5dnvdc7se" path="res://assets/player/wusel-spritesheet.png" id="2_jr8aq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr8aq"]
-radius = 2.0
+radius = 4.0
 height = 14.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4oy4f"]
@@ -212,6 +212,7 @@ animations = [{
 radius = 8.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 15
 motion_mode = 1
 script = ExtResource("1_q3uxj")
 
@@ -241,8 +242,8 @@ position = Vector2(-11, 0)
 
 [node name="PlayerHurtBox" type="Area2D" parent="."]
 position = Vector2(0, -13)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 16
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtBox"]
 shape = SubResource("CircleShape2D_uks75")

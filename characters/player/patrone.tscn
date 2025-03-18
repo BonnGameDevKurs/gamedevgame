@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://dlwtryaro3xug"]
 
 [ext_resource type="Script" uid="uid://bcbend7as31lp" path="res://characters/player/patrone.gd" id="1_uoupb"]
-[ext_resource type="Texture2D" uid="uid://b1kc1ujkcgs2l" path="res://assets/keg.png" id="1_yr613"]
+[ext_resource type="Texture2D" uid="uid://2vpp6y7f2dfc" path="res://assets/projectile.png" id="2_uoupb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4j4b0"]
 radius = 7.0
 
 [node name="RigidBody2D" type="RigidBody2D" groups=["Bullet"]]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 18
 mass = 0.1
 gravity_scale = 0.0
 contact_monitor = true
@@ -16,11 +16,11 @@ max_contacts_reported = 1
 script = ExtResource("1_uoupb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_4j4b0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -0.5)
-texture = ExtResource("1_yr613")
+position = Vector2(2.38419e-07, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("2_uoupb")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

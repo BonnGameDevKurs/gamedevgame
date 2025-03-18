@@ -1,27 +1,16 @@
-[gd_scene load_steps=13 format=4 uid="uid://h164m4d5wn4j"]
+[gd_scene load_steps=9 format=4 uid="uid://h164m4d5wn4j"]
 
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="1_6gmmr"]
 [ext_resource type="TileSet" uid="uid://o2pw3q66ur8l" path="res://assets/tilesets/grass_water_dirt/grass_water_dirt_tileset.tres" id="1_81ydp"]
 [ext_resource type="Texture2D" uid="uid://b1kc1ujkcgs2l" path="res://assets/keg.png" id="3_5a437"]
 [ext_resource type="PackedScene" uid="uid://wknbi2gm8gp" path="res://misc/health_bar/health_bar.tscn" id="3_o6xl0"]
-[ext_resource type="Script" uid="uid://cp1pvofbfkswo" path="res://scenes/dumb_enemy.gd" id="4_tbgi4"]
-[ext_resource type="Script" uid="uid://dhq1gh7svpb8u" path="res://scenes/better_dumb_enemy.gd" id="6_tefeu"]
-[ext_resource type="Texture2D" uid="uid://k1lc1kyyxa5k" path="res://assets/enemy_placeholder.svg" id="6_tipki"]
+[ext_resource type="PackedScene" uid="uid://i2hkislyjm7f" path="res://characters/dumb_enemy.tscn" id="5_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://m2kvxqpjqtdj" path="res://characters/better_dumb_enemy.tscn" id="6_tipki"]
 [ext_resource type="Script" uid="uid://c666rt15y1p67" path="res://misc/kill_counter_label.gd" id="8_tipki"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oymgl"]
 radius = 5.5
 height = 14.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_85g3d"]
-radius = 2.0
-height = 14.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_tefeu"]
-radius = 12.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_tipki"]
-radius = 50.0
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -32,7 +21,7 @@ tile_map_data = PackedByteArray("AAAKAAcABAAFAAAAAAAKAAYABAADAAEAAAAKAAUABAADAAA
 tile_set = ExtResource("1_81ydp")
 
 [node name="Player" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("1_6gmmr")]
-position = Vector2(18, 26)
+position = Vector2(15, 23)
 health_bar = NodePath("HealthBar")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -55,61 +44,11 @@ texture = ExtResource("3_5a437")
 position = Vector2(-0.5, 1.5)
 shape = SubResource("CapsuleShape2D_oymgl")
 
-[node name="Dumb_Enemy" type="CharacterBody2D" parent="." node_paths=PackedStringArray("health_bar")]
-position = Vector2(147, 53)
-motion_mode = 1
-script = ExtResource("4_tbgi4")
-health_bar = NodePath("HealthBar")
+[node name="Dumb_Enemy" parent="." instance=ExtResource("5_o6xl0")]
+position = Vector2(47, 44)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dumb_Enemy"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_85g3d")
-
-[node name="Sprite2D" type="Sprite2D" parent="Dumb_Enemy"]
-position = Vector2(0, -13)
-texture = ExtResource("6_tipki")
-
-[node name="HurtBox" type="Area2D" parent="Dumb_Enemy"]
-position = Vector2(0, -13)
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dumb_Enemy/HurtBox"]
-shape = SubResource("CircleShape2D_tefeu")
-
-[node name="HealthBar" parent="Dumb_Enemy" instance=ExtResource("3_o6xl0")]
-offset_top = -38.6667
-offset_bottom = -34.6667
-
-[node name="Better_Dumb_Enemy" type="CharacterBody2D" parent="."]
-position = Vector2(115, 78)
-motion_mode = 1
-script = ExtResource("6_tefeu")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Better_Dumb_Enemy"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_85g3d")
-
-[node name="Sprite2D" type="Sprite2D" parent="Better_Dumb_Enemy"]
-position = Vector2(0, -13)
-texture = ExtResource("6_tipki")
-
-[node name="DetectionRadius" type="Area2D" parent="Better_Dumb_Enemy"]
-position = Vector2(0, -13)
-collision_layer = 2
-collision_mask = 2
-priority = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Better_Dumb_Enemy/DetectionRadius"]
-shape = SubResource("CircleShape2D_tipki")
-
-[node name="HurtBox" type="Area2D" parent="Better_Dumb_Enemy"]
-position = Vector2(0, -13)
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Better_Dumb_Enemy/HurtBox"]
-shape = SubResource("CircleShape2D_tefeu")
+[node name="Better_Dumb_Enemy" parent="." instance=ExtResource("6_tipki")]
+position = Vector2(116, 83)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

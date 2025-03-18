@@ -19,9 +19,14 @@ func _ready():
 	
 	# Set up the health bar
 	health_bar.init(self)
+	
+	$AnimatedSprite2D.play("spawn")
 
 
 func _physics_process(_delta: float) -> void:
+	
+	# $AnimatedSprite2D.play("idle")
+	
 	if (target.position - position).length() < 250:
 		var dir = (target.position - position).normalized()
 		velocity = dir * SPEED
