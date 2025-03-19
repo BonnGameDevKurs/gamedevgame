@@ -1,9 +1,12 @@
 extends RigidBody2D
 
-var dmg = 10
+
+func _ready():
+	$HitBox.hit.connect(_on_hit)
+
 
 # Function to handle collision detection
-func _on_body_entered(body):
+func _on_hit():
 	print("boom")
 	await get_tree().create_timer(0.5).timeout
-	queue_free()  # Remove the bullet from the scene
+	queue_free()
