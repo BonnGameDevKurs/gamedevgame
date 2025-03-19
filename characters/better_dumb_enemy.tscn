@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://m2kvxqpjqtdj"]
+
+[ext_resource type="Script" uid="uid://dhq1gh7svpb8u" path="res://scenes/better_dumb_enemy.gd" id="1_hueaq"]
+[ext_resource type="Texture2D" uid="uid://k1lc1kyyxa5k" path="res://assets/enemy_placeholder.svg" id="2_f5gyx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_85g3d"]
+radius = 2.0
+height = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tipki"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tefeu"]
+radius = 12.0
+
+[node name="Better_Dumb_Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+motion_mode = 1
+script = ExtResource("1_hueaq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_85g3d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -13)
+texture = ExtResource("2_f5gyx")
+
+[node name="DetectionRadius" type="Area2D" parent="."]
+position = Vector2(0, -13)
+collision_layer = 2
+collision_mask = 2
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRadius"]
+shape = SubResource("CircleShape2D_tipki")
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0, -13)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_tefeu")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca6xtcx1civyy"
-path="res://.godot/imported/anti-wusel-spritesheet.png-c980ada07db4ac58600dc1cb70598f98.ctex"
+uid="uid://2vpp6y7f2dfc"
+path="res://.godot/imported/projectile.png-197bcbc76cb11b0c658014dfea4806d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/anti-wusel-spritesheet.png"
-dest_files=["res://.godot/imported/anti-wusel-spritesheet.png-c980ada07db4ac58600dc1cb70598f98.ctex"]
+source_file="res://assets/projectile.png"
+dest_files=["res://.godot/imported/projectile.png-197bcbc76cb11b0c658014dfea4806d1.ctex"]
 
 [params]
 

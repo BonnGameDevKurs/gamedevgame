@@ -1,0 +1,135 @@
+[gd_scene load_steps=19 format=3 uid="uid://i2hkislyjm7f"]
+
+[ext_resource type="Script" uid="uid://cp1pvofbfkswo" path="res://scenes/dumb_enemy.gd" id="1_e85n8"]
+[ext_resource type="Texture2D" uid="uid://bpwhgm8to6ejp" path="res://assets/enemy/anti-wusel-spritesheet.png" id="2_eknq4"]
+[ext_resource type="PackedScene" uid="uid://wknbi2gm8gp" path="res://misc/health_bar/health_bar.tscn" id="3_kvpyo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3xul"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0288"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a57l2"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gutp0"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igphh"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntbpw"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwqfg"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twfdf"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7030u"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cbm0"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(32, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8w081"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymnay"]
+atlas = ExtResource("2_eknq4")
+region = Rect2(96, 224, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tipki"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3xul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0288")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a57l2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gutp0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igphh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntbpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwqfg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twfdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7030u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cbm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8w081")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymnay")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_85g3d"]
+radius = 3.0
+height = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tefeu"]
+
+[node name="Dumb_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("health_bar")]
+motion_mode = 1
+script = ExtResource("1_e85n8")
+health_bar = NodePath("HealthBar")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tipki")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_85g3d")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_tefeu")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_kvpyo")]
+offset_left = -14.0
+offset_top = -19.0
+offset_right = 13.0
+offset_bottom = -15.0

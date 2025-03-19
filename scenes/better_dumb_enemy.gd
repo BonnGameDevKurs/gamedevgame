@@ -1,21 +1,28 @@
 extends CharacterBody2D
-@onready var target = $"../Player"
-var speed = 10
+
+const SPEED = 10
 
 @export var LP = 50
 
 var detected = false
-@onready var hitbox = $Hitbox
+
+@onready var target = $"../Player"
+
+func _ready():
+	$DetectionRadius.area_entered.connect(_on_detection_radius_area_entered)
+	$DetectionRadius.area_exited.connect(_on_detection_radius_area_exited)
 
 func _physics_process(_delta: float) -> void:
 	if detected:
 		var dir = (target.position - position).normalized()
-		velocity = dir * speed
-		look_at(target.position)
+		velocity = dir * SPEED
+		#look_at(target.position)
 		move_and_slide()
 
-func _on_detection_radius_body_entered(body: Node2D) -> void:
-	detected = true
+func _on_detection_radius_area_entered(area: Node2D) -> void:
+	if area.name == "PlayerHurtBox":
+		detected = true
 
-func _on_detection_radius_body_exited(body: Node2D) -> void:
-	detected = false
+func _on_detection_radius_area_exited(area: Node2D) -> void:
+	if area.name == "PlayerHurtBox":
+		detected = false

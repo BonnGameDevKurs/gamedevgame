@@ -13,16 +13,17 @@ const SPEED = 150
 @export var fire_rate = 0.2
 var can_fire = true
 
+# Health and HealthBar
+@export var max_health: int = 100
+@export var health_bar: ProgressBar
+var health: int
+
 var bullet = preload("res://characters/player/patrone.tscn")
 
 # Current state of the player
 var current_state = State.STANDING
 var _last_direction = _Direction.DOWN
 
-# Health and HealthBar
-var health: int
-@export var max_health: int = 100
-@export var health_bar: ProgressBar
 
 func _ready():
 	motion_mode = MOTION_MODE_FLOATING
@@ -34,9 +35,10 @@ func _ready():
 	# Set up the health bar
 	health_bar.init(self)
 
+
 func _physics_process(_delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-
+	
 	if direction.x > 0:
 		current_state = State.RUNNING
 		_last_direction = _Direction.RIGHT
@@ -68,11 +70,12 @@ func _physics_process(_delta):
 		elif _last_direction == _Direction.LEFT:
 			$AnimatedSprite2D.play("idle_side")
 			$AnimatedSprite2D.flip_h = true
-
+	
 	velocity = direction * SPEED
 	move_and_slide()
 	push_stuff()
 	fire_bullet()
+
 
 func push_stuff() -> void:
 	for i in get_slide_collision_count():
@@ -80,6 +83,7 @@ func push_stuff() -> void:
 		if c.get_collider() is RigidBody2D:
 			var push_force = (PUSH_FORCE * velocity.length() / SPEED) + MIN_PUSH_FORCE
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
+
 
 func fire_bullet() -> void:
 	if Input.is_action_pressed("fire_up") and can_fire:

@@ -1,7 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://dn5pmqnms068s"]
+[gd_scene load_steps=30 format=3 uid="uid://dn5pmqnms068s"]
 
 [ext_resource type="Script" uid="uid://dfkyw376uwd0x" path="res://characters/player/player.gd" id="1_q3uxj"]
 [ext_resource type="Texture2D" uid="uid://bist5dnvdc7se" path="res://assets/player/wusel-spritesheet.png" id="2_jr8aq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr8aq"]
+radius = 4.0
+height = 14.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4oy4f"]
 atlas = ExtResource("2_jr8aq")
@@ -208,16 +212,21 @@ animations = [{
 radius = 8.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 15
+motion_mode = 1
 script = ExtResource("1_q3uxj")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Player"]]
-sprite_frames = SubResource("SpriteFrames_3iqol")
-animation = &"run_up"
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_uks75")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jr8aq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Player"]]
+position = Vector2(0, -13)
+sprite_frames = SubResource("SpriteFrames_3iqol")
+animation = &"idle_down"
 
 [node name="Shoot_positions" type="Node2D" parent="."]
+position = Vector2(0, -13)
 
 [node name="Bullet_pos_up" type="Node2D" parent="Shoot_positions"]
 position = Vector2(0, -15)
@@ -230,3 +239,11 @@ position = Vector2(11, 0)
 
 [node name="Bullet_pos_left" type="Node2D" parent="Shoot_positions"]
 position = Vector2(-11, 0)
+
+[node name="PlayerHurtBox" type="Area2D" parent="."]
+position = Vector2(0, -13)
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtBox"]
+shape = SubResource("CircleShape2D_uks75")
