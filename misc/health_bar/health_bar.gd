@@ -7,5 +7,5 @@ func _ready():
 	self.min_value = 0
 	self.value = self.max_value
 
-func update():
+func _process(_delta):
 	self.value = hurt_box.health

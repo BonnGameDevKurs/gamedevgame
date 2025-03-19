@@ -13,10 +13,6 @@ const SPEED = 150
 @export var fire_rate = 0.2
 var can_fire = true
 
-# Health and HealthBar
-@export var max_health: int = 100
-@export var health_bar: ProgressBar
-var health: int
 
 var bullet = preload("res://characters/player/patrone.tscn")
 
@@ -29,11 +25,6 @@ func _ready():
 	motion_mode = MOTION_MODE_FLOATING
 	$AnimatedSprite2D.play("idle_down")
 	
-	# Set up the players resources
-	health = max_health
-	
-	# Set up the health bar
-	#ahealth_bar.init(self)
 
 
 func _physics_process(_delta):

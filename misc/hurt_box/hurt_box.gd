@@ -14,7 +14,7 @@ func _ready():
 	area_entered.connect(on_area_entered)
 
 
-func on_area_entered(area: Area2D):
+func on_area_entered(area: Area2D):	
 	if not area is HitBox:
 		return
 	for group in affected_by_groups:

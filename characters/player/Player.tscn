@@ -1,7 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://dn5pmqnms068s"]
+[gd_scene load_steps=32 format=3 uid="uid://dn5pmqnms068s"]
 
 [ext_resource type="Script" uid="uid://dfkyw376uwd0x" path="res://characters/player/player.gd" id="1_q3uxj"]
 [ext_resource type="Texture2D" uid="uid://bist5dnvdc7se" path="res://assets/player/wusel-spritesheet.png" id="2_jr8aq"]
+[ext_resource type="Script" uid="uid://b1w1jgjnlxvm1" path="res://misc/hurt_box/hurt_box.gd" id="3_ibj0t"]
+[ext_resource type="PackedScene" uid="uid://wknbi2gm8gp" path="res://misc/health_bar/health_bar.tscn" id="4_xoccb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr8aq"]
 radius = 2.0
@@ -239,10 +241,15 @@ position = Vector2(11, 0)
 [node name="Bullet_pos_left" type="Node2D" parent="Shoot_positions"]
 position = Vector2(-11, 0)
 
-[node name="PlayerHurtBox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="." groups=["Player"]]
 position = Vector2(0, -13)
-collision_layer = 2
-collision_mask = 2
+script = ExtResource("3_ibj0t")
+metadata/_custom_type_script = "uid://b1w1jgjnlxvm1"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_uks75")
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("hurt_box") instance=ExtResource("4_xoccb")]
+offset_top = -32.0
+offset_bottom = -28.0
+hurt_box = NodePath("../HurtBox")
