@@ -21,9 +21,11 @@ var current_state = State.STANDING
 var _last_direction = _Direction.DOWN
 
 
+@onready var animation_player = $AnimationPlayer
+
 func _ready():
 	motion_mode = MOTION_MODE_FLOATING
-	$AnimatedSprite2D.play("idle_down")
+	$AnimationPlayer.play("idle down")
 	
 
 
@@ -33,35 +35,31 @@ func _physics_process(_delta):
 	if direction.x > 0:
 		current_state = State.RUNNING
 		_last_direction = _Direction.RIGHT
-		$AnimatedSprite2D.play("run_side")
-		$AnimatedSprite2D.flip_h = false  # Ensure the sprite is not flipped
+		animation_player.play("run right")
 	elif direction.x < 0:
 		current_state = State.RUNNING
 		_last_direction = _Direction.LEFT
-		$AnimatedSprite2D.play("run_side")
-		$AnimatedSprite2D.flip_h = true  # Flip the sprite for left movement
+		animation_player.play("run left")
 	elif direction.y > 0:
 		current_state = State.RUNNING
 		_last_direction = _Direction.DOWN
-		$AnimatedSprite2D.play("run_down")
+		animation_player.play("run down")
 	elif direction.y < 0:
 		current_state = State.RUNNING
 		_last_direction = _Direction.UP
-		$AnimatedSprite2D.play("run_up")
+		animation_player.play("run up")
 		
 	else:
 		current_state = State.STANDING
 		if _last_direction == _Direction.DOWN:
-			$AnimatedSprite2D.play("idle_down")  # Change to your idle animation
+			animation_player.play("idle down")  # Change to your idle animation
 		elif _last_direction == _Direction.UP:
-			$AnimatedSprite2D.play("idle_up")
+			animation_player.play("idle up")
 		elif _last_direction == _Direction.RIGHT:
-			$AnimatedSprite2D.play("idle_side")
-			$AnimatedSprite2D.flip_h = false
+			animation_player.play("idle right")
 		elif _last_direction == _Direction.LEFT:
-			$AnimatedSprite2D.play("idle_side")
-			$AnimatedSprite2D.flip_h = true
-	
+			animation_player.play("idle left")
+
 	velocity = direction * SPEED
 	move_and_slide()
 	push_stuff()
