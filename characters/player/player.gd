@@ -8,7 +8,6 @@ enum _Direction {UP, DOWN, LEFT, RIGHT}
 const PUSH_FORCE := 10
 const MIN_PUSH_FORCE := 10
 const SPEED = 150
-
 @export var bullet_speed = 100
 @export var fire_rate = 0.2
 var can_fire = true
@@ -22,16 +21,40 @@ var _last_direction = _Direction.DOWN
 
 
 @onready var animation_player = $AnimationPlayer
+@onready var timer = $Timer
+
+@onready var shoot_pos_up = $Shoot_positions/Bullet_pos_up
+@onready var shoot_pos_down = $Shoot_positions/Bullet_pos_down
+@onready var shoot_pos_right = $Shoot_positions/Bullet_pos_right
+@onready var shoot_pos_left = $Shoot_positions/Bullet_pos_left
 
 func _ready():
 	motion_mode = MOTION_MODE_FLOATING
 	$AnimationPlayer.play("idle down")
+	$Timer.timeout.connect(_on_fire_timer_timeout)
 	
 
 
 func _physics_process(_delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	
+	set_animation(direction)
+
+	velocity = direction * SPEED
+	move_and_slide()
+	push_stuff()
+	
+	if Input.is_action_pressed("fire_up") and can_fire:
+		fire_bullet(_Direction.UP)
+	if Input.is_action_pressed("fire_down") and can_fire:
+		fire_bullet(_Direction.DOWN)
+	if Input.is_action_pressed("fire_left") and can_fire:
+		fire_bullet(_Direction.LEFT)
+	if Input.is_action_pressed("fire_right") and can_fire:
+		fire_bullet(_Direction.RIGHT)
+
+
+func set_animation(direction):	
 	if direction.x > 0:
 		current_state = State.RUNNING
 		_last_direction = _Direction.RIGHT
@@ -52,18 +75,13 @@ func _physics_process(_delta):
 	else:
 		current_state = State.STANDING
 		if _last_direction == _Direction.DOWN:
-			animation_player.play("idle down")  # Change to your idle animation
+			animation_player.play("idle down")
 		elif _last_direction == _Direction.UP:
 			animation_player.play("idle up")
-		elif _last_direction == _Direction.RIGHT:
-			animation_player.play("idle right")
 		elif _last_direction == _Direction.LEFT:
 			animation_player.play("idle left")
-
-	velocity = direction * SPEED
-	move_and_slide()
-	push_stuff()
-	fire_bullet()
+		elif _last_direction == _Direction.RIGHT:
+			animation_player.play("idle right")
 
 
 func push_stuff() -> void:
@@ -74,40 +92,36 @@ func push_stuff() -> void:
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
 
 
-func fire_bullet() -> void:
-	if Input.is_action_pressed("fire_up") and can_fire:
+func fire_bullet(direction):
 		var bullet_instance = bullet.instantiate()
-		bullet_instance.position = $Shoot_positions/Bullet_pos_up.global_position
 		bullet_instance.rotation_degrees = 0
-		bullet_instance.apply_impulse(Vector2(0, -bullet_speed), bullet_instance.global_position)
+		
+		var direction_vector = Vector2.ZERO
+		var shoot_pos
+		
+		match direction:
+			_Direction.UP:
+				direction_vector = Vector2.UP
+				shoot_pos = shoot_pos_up
+			_Direction.DOWN:
+				direction_vector = Vector2.DOWN
+				shoot_pos = shoot_pos_down
+			_Direction.LEFT:
+				direction_vector = Vector2.LEFT
+				shoot_pos = shoot_pos_left
+			_Direction.RIGHT:
+				direction_vector = Vector2.RIGHT
+				shoot_pos = shoot_pos_right
+		
+		bullet_instance.position = shoot_pos.global_position
+		bullet_instance.apply_impulse(direction_vector*bullet_speed, bullet_instance.global_position)
 		get_tree().get_root().add_child(bullet_instance)
+		
 		can_fire = false
-		await get_tree().create_timer(fire_rate).timeout
-		can_fire = true
-	if Input.is_action_pressed("fire_down") and can_fire:
-		var bullet_instance = bullet.instantiate()
-		bullet_instance.position = $Shoot_positions/Bullet_pos_down.global_position
-		bullet_instance.rotation_degrees = 0
-		bullet_instance.apply_impulse(Vector2(0, bullet_speed), bullet_instance.global_position)
-		get_tree().get_root().add_child(bullet_instance)
-		can_fire = false
-		await get_tree().create_timer(fire_rate).timeout
-		can_fire = true
-	if Input.is_action_pressed("fire_left") and can_fire:
-		var bullet_instance = bullet.instantiate()
-		bullet_instance.position = $Shoot_positions/Bullet_pos_left.global_position
-		bullet_instance.rotation_degrees = 0
-		bullet_instance.apply_impulse(Vector2(-bullet_speed, 0), bullet_instance.global_position)
-		get_tree().get_root().add_child(bullet_instance)
-		can_fire = false
-		await get_tree().create_timer(fire_rate).timeout
-		can_fire = true
-	if Input.is_action_pressed("fire_right") and can_fire:
-		var bullet_instance = bullet.instantiate()
-		bullet_instance.position = $Shoot_positions/Bullet_pos_right.global_position
-		bullet_instance.rotation_degrees = 0
-		bullet_instance.apply_impulse(Vector2(bullet_speed, 0), bullet_instance.global_position)
-		get_tree().get_root().add_child(bullet_instance)
-		can_fire = false
-		await get_tree().create_timer(fire_rate).timeout
-		can_fire = true
+		timer.start(fire_rate)
+		
+	
+
+
+func _on_fire_timer_timeout():
+	can_fire = true

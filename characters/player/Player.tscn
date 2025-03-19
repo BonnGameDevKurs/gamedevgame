@@ -210,6 +210,7 @@ position = Vector2(0, -13)
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("3_ibj0t")
+affected_by_groups = Array[String](["Enemy"])
 metadata/_custom_type_script = "uid://b1w1jgjnlxvm1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
@@ -230,3 +231,6 @@ vframes = 8
 offset_top = -32.0
 offset_bottom = -28.0
 hurt_box = NodePath("../HurtBox")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
