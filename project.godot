@@ -33,6 +33,7 @@ window/stretch/aspect="keep_width"
 
 Bullet=""
 Player=""
+Enemy="Group for Enemies"
 
 [input]
 

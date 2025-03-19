@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw7412nr8otno"]
+
+[ext_resource type="Script" uid="uid://cp1pvofbfkswo" path="res://scenes/dumb_enemy.gd" id="1_j4xst"]
+[ext_resource type="Texture2D" uid="uid://k1lc1kyyxa5k" path="res://assets/enemy_placeholder.svg" id="2_ucmlv"]
+[ext_resource type="PackedScene" uid="uid://wknbi2gm8gp" path="res://misc/health_bar/health_bar.tscn" id="3_j208u"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_85g3d"]
+radius = 2.0
+height = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tefeu"]
+radius = 12.0
+
+[node name="Dumb_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("health_bar")]
+motion_mode = 1
+script = ExtResource("1_j4xst")
+health_bar = NodePath("HealthBar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_85g3d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -13)
+texture = ExtResource("2_ucmlv")
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0, -13)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_tefeu")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_j208u")]
+offset_top = -38.6667
+offset_bottom = -34.6667
+script = null

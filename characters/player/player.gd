@@ -33,7 +33,7 @@ func _ready():
 	health = max_health
 	
 	# Set up the health bar
-	health_bar.init(self)
+	#ahealth_bar.init(self)
 
 
 func _physics_process(_delta):
