@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://nvsa1hfsclia"]
+
+[ext_resource type="Texture2D" uid="uid://bhkvo3w18m82c" path="res://assets/player/anti_wusel_spritesheet.png" id="1_dxaiu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bm2dv"]
+radius = 2.0
+height = 14.0
+
+[node name="Enemy" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_bm2dv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -13)
+texture = ExtResource("1_dxaiu")
+hframes = 4
+vframes = 10
