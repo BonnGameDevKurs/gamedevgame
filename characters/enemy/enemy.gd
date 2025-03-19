@@ -21,7 +21,7 @@ func _ready():
 	$AnimationPlayer.animation_finished.connect(_spawned)
 	$DetectionArea.area_entered.connect(_area_entered_detection_range)
 	$UndetectionArea.area_exited.connect(_area_exited_detection_range)
-	$HurtBox.damamged.connect(_on_damaged)
+	$HurtBox.damaged.connect(_on_damaged)
 
 
 func _physics_process(_delta):
@@ -91,6 +91,6 @@ func _area_exited_detection_range(area: Area2D):
 	_detected = false
 
 
-func _on_damaged(damage, health):
+func _on_damaged(_damage, health):
 	if health <= 0:
 		queue_free()

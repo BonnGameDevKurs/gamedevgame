@@ -6,6 +6,7 @@ func _ready():
 	self.max_value = hurt_box.max_health
 	self.min_value = 0
 	self.value = self.max_value
+	hurt_box.damaged.connect(update_health)
 
-func _process(_delta):
-	self.value = hurt_box.health
+func update_health(_damage, health):
+	self.value = health

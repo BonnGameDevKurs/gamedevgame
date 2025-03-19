@@ -1,7 +1,7 @@
 class_name HurtBox
 extends Area2D
 
-signal damamged(damage, new_health)
+signal damaged(damage, new_health)
 
 @export var max_health: int = 100
 @export var affected_by_groups: Array[String]
@@ -21,5 +21,5 @@ func on_area_entered(area: Area2D):
 		if not area.is_in_group(group):
 			continue
 		health = max(health - area.damage, 0)
-		damamged.emit(area.damage, health)
+		damaged.emit(area.damage, health)
 		return
