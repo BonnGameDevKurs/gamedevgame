@@ -181,6 +181,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_q3uxj")
 
@@ -205,6 +207,8 @@ position = Vector2(-11, 0)
 
 [node name="HurtBox" type="Area2D" parent="." groups=["Player"]]
 position = Vector2(0, -13)
+collision_layer = 16
+collision_mask = 16
 script = ExtResource("3_ibj0t")
 metadata/_custom_type_script = "uid://b1w1jgjnlxvm1"
 

@@ -77,6 +77,7 @@ script = ExtResource("3_2fv6y")
 
 [node name="Keg2" type="RigidBody2D" parent="."]
 position = Vector2(131, 8)
+collision_mask = 15
 gravity_scale = 0.0
 
 [node name="Sprite2D2" type="Sprite2D" parent="Keg2"]
