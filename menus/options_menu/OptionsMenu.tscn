@@ -53,11 +53,14 @@ layout_mode = 2
 
 [node name="FullscreenButton" type="CheckButton" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/icon_max_width = 14
+theme_override_font_sizes/font_size = 8
 text = "Fullscreen"
 script = ExtResource("1_exki5")
 
 [node name="ExitButton" type="Button" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Exit to Desktop"
 script = ExtResource("2_bnqm3")
 
