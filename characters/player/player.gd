@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Define states using an enumeration
-enum State { STANDING, RUNNING }
+enum State { IDLE, RUNNING }
 enum _Direction {UP, DOWN, LEFT, RIGHT}
 
 # Player constants
@@ -16,11 +16,12 @@ var can_fire = true
 var bullet = preload("res://characters/player/patrone.tscn")
 
 # Current state of the player
-var current_state = State.STANDING
+var current_state = State.IDLE
 var _last_direction = _Direction.DOWN
 
 
-@onready var animation_player = $AnimationPlayer
+@onready var movement_animation = $MovementAnimation
+@onready var gun_animation = $GunAnimation
 @onready var timer = $Timer
 
 @onready var shoot_pos_up = $Shoot_positions/Bullet_pos_up
@@ -30,58 +31,72 @@ var _last_direction = _Direction.DOWN
 
 func _ready():
 	motion_mode = MOTION_MODE_FLOATING
-	$AnimationPlayer.play("idle down")
+	$MovementAnimation.play("idle down")
 	$Timer.timeout.connect(_on_fire_timer_timeout)
 	
 
 
 func _physics_process(_delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	
-	set_animation(direction)
 
 	velocity = direction * SPEED
 	move_and_slide()
 	push_stuff()
 	
-	if Input.is_action_pressed("fire_up") and can_fire:
-		fire_bullet(_Direction.UP)
-	if Input.is_action_pressed("fire_down") and can_fire:
-		fire_bullet(_Direction.DOWN)
-	if Input.is_action_pressed("fire_left") and can_fire:
-		fire_bullet(_Direction.LEFT)
-	if Input.is_action_pressed("fire_right") and can_fire:
-		fire_bullet(_Direction.RIGHT)
+	if Input.is_action_pressed("fire_up"):
+		animate_shooting(_Direction.UP)
+		if can_fire:
+			fire_bullet(_Direction.UP)
+	
+	elif Input.is_action_pressed("fire_down"):
+		animate_shooting(_Direction.DOWN)
+		if can_fire:
+			fire_bullet(_Direction.DOWN)
+	
+	elif Input.is_action_pressed("fire_left"):
+		animate_shooting(_Direction.LEFT)
+		if can_fire:
+			fire_bullet(_Direction.LEFT)
+	
+	elif Input.is_action_pressed("fire_right"):
+		animate_shooting(_Direction.RIGHT)
+		if can_fire:
+			fire_bullet(_Direction.RIGHT)
+	else:
+		animate_shooting()
+	
+	# direction can be influenced by shooting direction on idle
+	set_animation(direction)
 
 
 func set_animation(direction):	
 	if direction.x > 0:
 		current_state = State.RUNNING
 		_last_direction = _Direction.RIGHT
-		animation_player.play("run right")
+		movement_animation.play("run right")
 	elif direction.x < 0:
 		current_state = State.RUNNING
 		_last_direction = _Direction.LEFT
-		animation_player.play("run left")
+		movement_animation.play("run left")
 	elif direction.y > 0:
 		current_state = State.RUNNING
 		_last_direction = _Direction.DOWN
-		animation_player.play("run down")
+		movement_animation.play("run down")
 	elif direction.y < 0:
 		current_state = State.RUNNING
 		_last_direction = _Direction.UP
-		animation_player.play("run up")
+		movement_animation.play("run up")
 		
 	else:
-		current_state = State.STANDING
+		current_state = State.IDLE
 		if _last_direction == _Direction.DOWN:
-			animation_player.play("idle down")
+			movement_animation.play("idle down")
 		elif _last_direction == _Direction.UP:
-			animation_player.play("idle up")
+			movement_animation.play("idle up")
 		elif _last_direction == _Direction.LEFT:
-			animation_player.play("idle left")
+			movement_animation.play("idle left")
 		elif _last_direction == _Direction.RIGHT:
-			animation_player.play("idle right")
+			movement_animation.play("idle right")
 
 
 func push_stuff() -> void:
@@ -119,8 +134,44 @@ func fire_bullet(direction):
 		
 		can_fire = false
 		timer.start(fire_rate)
-		
+
+
+func animate_shooting(direction=null):
+	if direction == null:
+		gun_animation.play("RESET")
+		return
 	
+	if current_state == State.IDLE:
+		_last_direction = direction
+	
+	match direction:
+		_Direction.UP:
+			match _last_direction:
+				_Direction.UP, _Direction.RIGHT:
+					gun_animation.play("shoot up")
+				_Direction.DOWN, _Direction.LEFT:
+					gun_animation.play("shoot up alt")
+		
+		_Direction.DOWN:
+			match _last_direction:
+				_Direction.UP, _Direction.RIGHT:
+					gun_animation.play("shoot down alt")
+				_Direction.DOWN, _Direction.LEFT:
+					gun_animation.play("shoot down")
+		
+		_Direction.RIGHT:
+			match _last_direction:
+				_Direction.DOWN, _Direction.RIGHT:
+					gun_animation.play("shoot right")
+				_Direction.UP, _Direction.LEFT:
+					gun_animation.play("shoot right alt")
+		
+		_Direction.LEFT:
+			match _last_direction:
+				_Direction.DOWN, _Direction.RIGHT:
+					gun_animation.play("shoot left alt")
+				_Direction.UP, _Direction.LEFT:
+					gun_animation.play("shoot left")
 
 
 func _on_fire_timer_timeout():
