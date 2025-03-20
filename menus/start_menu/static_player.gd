@@ -1,4 +1,4 @@
 extends CharacterBody2D
 
 func _ready():
-	$AnimationPlayer.play("idle down")
+	$MovementAnimation.play("idle down")
