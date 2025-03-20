@@ -93,4 +93,6 @@ func _area_exited_detection_range(area: Area2D):
 
 func _on_damaged(_damage, health):
 	if health <= 0:
+		var kills = StatsHolder.kill_counter + 1
+		StatsHolderClass.update_stat(StatsHolderClass.Stats.KILLCOUNTER, kills)
 		queue_free()
