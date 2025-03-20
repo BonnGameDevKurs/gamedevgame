@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://nvsa1hfsclia"]
 
 [ext_resource type="Script" uid="uid://c2owf2lmuornh" path="res://characters/enemy/enemy.gd" id="1_bm2dv"]
-[ext_resource type="Texture2D" uid="uid://d1pmuvih3c62f" path="res://assets/player/anti_wusel_spritesheet.png" id="1_dxaiu"]
+[ext_resource type="Texture2D" uid="uid://d1pmuvih3c62f" path="res://assets/Enemies/anti_wusel_spritesheet.png" id="1_dxaiu"]
 [ext_resource type="Script" uid="uid://b1w1jgjnlxvm1" path="res://misc/hurt_box/hurt_box.gd" id="3_427j3"]
 [ext_resource type="Script" uid="uid://c2f6esow4sew4" path="res://misc/hit_box/hit_box.gd" id="4_fxr07"]
 [ext_resource type="PackedScene" uid="uid://wknbi2gm8gp" path="res://misc/health_bar/health_bar.tscn" id="5_fxr07"]
@@ -211,6 +211,8 @@ radius = 50.0
 radius = 100.0
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 4
+collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_bm2dv")
 
@@ -231,6 +233,8 @@ libraries = {
 
 [node name="HurtBox" type="Area2D" parent="." groups=["Enemy"]]
 position = Vector2(0, -13)
+collision_layer = 16
+collision_mask = 16
 script = ExtResource("3_427j3")
 affected_by_groups = Array[String](["Bullet"])
 
@@ -239,6 +243,8 @@ shape = SubResource("CircleShape2D_iuxou")
 
 [node name="HitBox" type="Area2D" parent="." groups=["Enemy"]]
 position = Vector2(0, -13)
+collision_layer = 16
+collision_mask = 16
 script = ExtResource("4_fxr07")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
@@ -258,12 +264,16 @@ hurt_box = NodePath("../HurtBox")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 position = Vector2(0, -13)
+collision_layer = 16
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_fxr07")
 
 [node name="UndetectionArea" type="Area2D" parent="."]
 position = Vector2(0, -13)
+collision_layer = 16
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UndetectionArea"]
 shape = SubResource("CircleShape2D_tlrvp")
