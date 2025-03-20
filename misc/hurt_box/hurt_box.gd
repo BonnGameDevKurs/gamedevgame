@@ -50,5 +50,6 @@ func on_area_entered(area: Area2D):
 		take_damage(area.damage)
 		return
 
+
 func on_area_exited(area: Area2D):
 	damage_dealers.erase(area)
