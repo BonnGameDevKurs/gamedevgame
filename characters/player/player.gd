@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal died()
+
 # Define states using an enumeration
 enum State { IDLE, RUNNING }
 enum _Direction {UP, DOWN, LEFT, RIGHT}
@@ -33,6 +35,7 @@ func _ready():
 	motion_mode = MOTION_MODE_FLOATING
 	$MovementAnimation.play("idle down")
 	$Timer.timeout.connect(_on_fire_timer_timeout)
+	$HurtBox.damaged.connect(_on_damage_taken)
 	
 
 
@@ -176,3 +179,10 @@ func animate_shooting(direction=null):
 
 func _on_fire_timer_timeout():
 	can_fire = true
+
+
+func _on_damage_taken(_damage, health):
+	if health <= 0:
+		get_tree().paused = true
+		died.emit()
+		
