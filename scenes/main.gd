@@ -2,14 +2,21 @@ extends Node2D
 
 @export var spawn_area_start: Vector2 = Vector2(0,0)
 @export var spawn_area_end: Vector2 = Vector2(300,200) 
+@export var initial_spawn_time = 5
+@export var time_reset_after_spawn_multiplier = 0.9
+@export var min_spawn_time = 1
+
 
 var enemy = preload("res://characters/enemy/enemy.tscn")
+var spawn_time
 
 @onready var spawn_timer = $SpawnTimer
 
 
 func _ready():
 	$SpawnTimer.timeout.connect(_on_spawn_timer_timeout)
+	spawn_time = initial_spawn_time
+	$SpawnTimer.start(initial_spawn_time)
 
 
 func spawn_enemies():
@@ -23,5 +30,6 @@ func spawn_enemies():
 
 
 func _on_spawn_timer_timeout():
-	spawn_timer.start()
+	spawn_time = max(min_spawn_time, spawn_time*time_reset_after_spawn_multiplier)
+	spawn_timer.start(spawn_time)
 	spawn_enemies()
