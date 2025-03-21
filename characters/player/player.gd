@@ -44,7 +44,6 @@ func _physics_process(_delta):
 
 	velocity = direction * SPEED
 	move_and_slide()
-	push_stuff()
 	
 	if Input.is_action_pressed("fire_up"):
 		animate_shooting(_Direction.UP)
@@ -102,14 +101,6 @@ func set_animation(direction):
 			movement_animation.play("idle right")
 
 
-func push_stuff() -> void:
-	for i in get_slide_collision_count():
-		var c = get_slide_collision(i)
-		if c.get_collider() is RigidBody2D:
-			var push_force = (PUSH_FORCE * velocity.length() / SPEED) + MIN_PUSH_FORCE
-			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
-
-
 func fire_bullet(direction):
 		var bullet_instance = bullet.instantiate()
 		bullet_instance.rotation_degrees = 0
@@ -133,7 +124,7 @@ func fire_bullet(direction):
 		
 		bullet_instance.position = shoot_pos.global_position
 		bullet_instance.apply_impulse(direction_vector*bullet_speed, bullet_instance.global_position)
-		get_tree().get_root().add_child(bullet_instance)
+		get_tree().get_current_scene().add_child(bullet_instance)
 		
 		can_fire = false
 		timer.start(fire_rate)

@@ -22,8 +22,8 @@ StatsHolder="*res://misc/stats_holder/stats_holder.tscn"
 
 [display]
 
-window/size/viewport_width=232
-window/size/viewport_height=126
+window/size/viewport_width=348
+window/size/viewport_height=189
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
@@ -95,6 +95,7 @@ ESC={
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Bullet"
 2d_physics/layer_5="Hit/Hurt"
+2d_physics/layer_6="Obstacles"
 
 [rendering]
 
