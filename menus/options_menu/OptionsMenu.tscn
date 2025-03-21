@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbdfgudxbjle5"]
+[gd_scene load_steps=7 format=3 uid="uid://bbdfgudxbjle5"]
 
 [ext_resource type="Script" uid="uid://ctywqwkudcho7" path="res://menus/options_menu/full_screen.gd" id="1_exki5"]
 [ext_resource type="Script" uid="uid://cldmwib113sm3" path="res://menus/options_menu/options_menu.gd" id="1_kv6tk"]
 [ext_resource type="Script" uid="uid://tnipq7flcp27" path="res://menus/options_menu/exit_button.gd" id="2_bnqm3"]
+[ext_resource type="FontFile" uid="uid://bug4bpkhu10u5" path="res://assets/nokiafc22.ttf" id="2_shqvc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnqm3"]
 bg_color = Color(0.192157, 0.2, 0.219608, 0.427451)
@@ -54,12 +55,14 @@ layout_mode = 2
 [node name="FullscreenButton" type="CheckButton" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/icon_max_width = 14
+theme_override_fonts/font = ExtResource("2_shqvc")
 theme_override_font_sizes/font_size = 8
 text = "Fullscreen"
 script = ExtResource("1_exki5")
 
 [node name="ExitButton" type="Button" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_shqvc")
 theme_override_font_sizes/font_size = 8
 text = "Exit to Desktop"
 script = ExtResource("2_bnqm3")

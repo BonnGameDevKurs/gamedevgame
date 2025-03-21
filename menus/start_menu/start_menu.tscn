@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://dplnmxkaqw7qv"]
+[gd_scene load_steps=12 format=4 uid="uid://dplnmxkaqw7qv"]
 
 [ext_resource type="TileSet" uid="uid://o2pw3q66ur8l" path="res://assets/tilesets/grass_water_dirt/grass_water_dirt_tileset.tres" id="1_g3ifd"]
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="2_w37o8"]
 [ext_resource type="Script" uid="uid://wblgqtpa5x13" path="res://menus/start_menu/static_player.gd" id="3_2fv6y"]
 [ext_resource type="Texture2D" uid="uid://b1kc1ujkcgs2l" path="res://assets/keg.png" id="4_r7mew"]
 [ext_resource type="Script" uid="uid://d3sw0dplqkg67" path="res://menus/start_menu/start_button.gd" id="5_un03f"]
+[ext_resource type="FontFile" uid="uid://bug4bpkhu10u5" path="res://assets/nokiafc22.ttf" id="5_w37o8"]
 [ext_resource type="Script" uid="uid://d30ps3netuafa" path="res://menus/start_menu/options_button.gd" id="6_jxplj"]
 
 [sub_resource type="Animation" id="Animation_h61rw"]
@@ -123,20 +124,23 @@ size_flags_vertical = 4
 [node name="StartButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 4
+theme_override_fonts/font = ExtResource("5_w37o8")
+theme_override_font_sizes/font_size = 6
 text = "START"
 script = ExtResource("5_un03f")
 
 [node name="StoryButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 4
+theme_override_fonts/font = ExtResource("5_w37o8")
+theme_override_font_sizes/font_size = 6
 text = "STORY"
 
 [node name="OptionsButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 4
+theme_override_fonts/font = ExtResource("5_w37o8")
+theme_override_font_sizes/font_size = 6
 text = "OPTIONS"
 script = ExtResource("6_jxplj")
 
