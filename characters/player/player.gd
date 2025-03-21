@@ -14,6 +14,7 @@ const SPEED = 150
 @export var fire_rate = 0.2
 var can_fire = true
 
+var in_explosion_range = []
 
 var bullet = preload("res://characters/player/patrone.tscn")
 
@@ -24,6 +25,7 @@ var _last_direction = _Direction.DOWN
 
 @onready var movement_animation = $MovementAnimation
 @onready var gun_animation = $GunAnimation
+@onready var explosion_animation = $ExplosionAnimation
 @onready var timer = $Timer
 
 @onready var shoot_pos_up = $Shoot_positions/Bullet_pos_up
@@ -31,12 +33,14 @@ var _last_direction = _Direction.DOWN
 @onready var shoot_pos_right = $Shoot_positions/Bullet_pos_right
 @onready var shoot_pos_left = $Shoot_positions/Bullet_pos_left
 
+
 func _ready():
 	motion_mode = MOTION_MODE_FLOATING
 	$MovementAnimation.play("idle down")
 	$Timer.timeout.connect(_on_fire_timer_timeout)
 	$HurtBox.damaged.connect(_on_damage_taken)
-	
+	$ExplosionArea.area_entered.connect(_on_explosion_area_entered)
+	$ExplosionArea.area_exited.connect(_on_explosion_area_exited)
 
 
 func _physics_process(_delta):
@@ -66,9 +70,12 @@ func _physics_process(_delta):
 			fire_bullet(_Direction.RIGHT)
 	else:
 		animate_shooting()
-	
+		
 	# direction can be influenced by shooting direction on idle
 	set_animation(direction)
+	
+	if Input.is_action_just_pressed("ability"):
+		explosion_animation.play("explosion")
 
 
 func set_animation(direction):	
@@ -176,4 +183,22 @@ func _on_damage_taken(_damage, health):
 	if health <= 0:
 		get_tree().paused = true
 		died.emit()
-		
+
+
+func _on_explosion_area_entered(area: Area2D):
+	if not area is HurtBox:
+		return
+	if area.get_parent() == self:
+		return
+	in_explosion_range.append(area)
+
+
+func _on_explosion_area_exited(area: Area2D):
+	in_explosion_range.erase(area)
+
+
+func _explosion_kill():
+	for box in in_explosion_range:
+		box.get_parent().queue_free()
+		var kills = StatsHolder.kill_counter + 1
+		StatsHolderClass.update_stat(StatsHolderClass.Stats.KILLCOUNTER, kills)
