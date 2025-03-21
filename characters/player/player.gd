@@ -33,6 +33,8 @@ var _last_direction = _Direction.DOWN
 @onready var shoot_pos_right = $Shoot_positions/Bullet_pos_right
 @onready var shoot_pos_left = $Shoot_positions/Bullet_pos_left
 
+@onready var raycast_ignore = [self, $HurtBox, $ExplosionArea]
+
 
 func _ready():
 	motion_mode = MOTION_MODE_FLOATING
@@ -175,6 +177,12 @@ func animate_shooting(direction=null):
 					gun_animation.play("shoot left")
 
 
+func damage_by_distance(hurtbox):
+	var relative_distance = hurtbox.global_position.distance_to(global_position)/42
+	var damage = max(0,(1-relative_distance)*100)
+	hurtbox.take_damage(damage)
+
+
 func _on_fire_timer_timeout():
 	can_fire = true
 
@@ -198,7 +206,15 @@ func _on_explosion_area_exited(area: Area2D):
 
 
 func _explosion_kill():
+	var space_state = get_world_2d().direct_space_state
 	for box in in_explosion_range:
+		var query = PhysicsRayQueryParameters2D.create(global_position, box.global_position, 80, raycast_ignore)
+		query.collide_with_areas = true
+		query.hit_from_inside = true
+		var result = space_state.intersect_ray(query)
+		if not result or not result.collider == box:
+			damage_by_distance(box)
+			continue
 		box.get_parent().queue_free()
 		var kills = StatsHolder.kill_counter + 1
 		StatsHolderClass.update_stat(StatsHolderClass.Stats.KILLCOUNTER, kills)

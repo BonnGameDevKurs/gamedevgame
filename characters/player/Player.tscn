@@ -653,8 +653,8 @@ position = Vector2(-11, 0)
 
 [node name="HurtBox" type="Area2D" parent="." groups=["Player"]]
 position = Vector2(0, -13)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 64
+collision_mask = 32
 script = ExtResource("3_ibj0t")
 affected_by_groups = Array[String](["Enemy"])
 metadata/_custom_type_script = "uid://b1w1jgjnlxvm1"
@@ -709,8 +709,8 @@ libraries = {
 
 [node name="ExplosionArea" type="Area2D" parent="."]
 position = Vector2(0, -13)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 128
+collision_mask = 64
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="ExplosionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
 shape = SubResource("CircleShape2D_awrgq")
