@@ -124,7 +124,7 @@ func fire_bullet(direction):
 		
 		bullet_instance.position = shoot_pos.global_position
 		bullet_instance.apply_impulse(direction_vector*bullet_speed, bullet_instance.global_position)
-		get_tree().get_root().add_child(bullet_instance)
+		get_tree().get_current_scene().add_child(bullet_instance)
 		
 		can_fire = false
 		timer.start(fire_rate)

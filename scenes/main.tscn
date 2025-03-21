@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://h164m4d5wn4j"]
+[gd_scene load_steps=8 format=4 uid="uid://h164m4d5wn4j"]
 
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="1_6gmmr"]
 [ext_resource type="TileSet" uid="uid://o2pw3q66ur8l" path="res://assets/tilesets/grass_water_dirt/grass_water_dirt_tileset.tres" id="1_81ydp"]
 [ext_resource type="Script" uid="uid://u04vv6qah2ac" path="res://scenes/main.gd" id="1_tefeu"]
 [ext_resource type="PackedScene" uid="uid://bkhcmswqnxk1i" path="res://misc/keg/keg.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://cj3rfysoalbsb" path="res://menus/death_screen/death_screen.tscn" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://c666rt15y1p67" path="res://misc/kill_counter_label.gd" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://nvsa1hfsclia" path="res://characters/enemy/enemy.tscn" id="9_85g3d"]
 
@@ -72,3 +73,9 @@ position = Vector2(129, 167)
 
 [node name="Keg7" parent="." instance=ExtResource("3_tbgi4")]
 position = Vector2(169, 33)
+
+[node name="DeathLayer" type="CanvasLayer" parent="."]
+layer = 4
+visible = false
+
+[node name="DeathScreen" parent="DeathLayer" instance=ExtResource("7_o6xl0")]
