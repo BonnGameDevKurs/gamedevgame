@@ -212,7 +212,7 @@ radius = 120.0
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
-collision_mask = 39
+collision_mask = 23
 motion_mode = 1
 script = ExtResource("1_bm2dv")
 
@@ -234,8 +234,8 @@ libraries = {
 
 [node name="HurtBox" type="Area2D" parent="." groups=["Enemy"]]
 position = Vector2(0, -13)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 64
+collision_mask = 32
 script = ExtResource("3_427j3")
 affected_by_groups = Array[String](["Bullet"])
 
@@ -244,8 +244,8 @@ shape = SubResource("CircleShape2D_iuxou")
 
 [node name="HitBox" type="Area2D" parent="." groups=["Enemy"]]
 position = Vector2(0, -13)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 32
+collision_mask = 64
 script = ExtResource("4_fxr07")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
@@ -265,16 +265,16 @@ hurt_box = NodePath("../HurtBox")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 position = Vector2(0, -13)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 128
+collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_fxr07")
 
 [node name="UndetectionArea" type="Area2D" parent="."]
 position = Vector2(0, -13)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 128
+collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UndetectionArea"]
 shape = SubResource("CircleShape2D_tlrvp")
