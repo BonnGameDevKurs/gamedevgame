@@ -18,6 +18,9 @@ func _ready():
 	spawn_time = initial_spawn_time
 	$SpawnTimer.start(initial_spawn_time)
 	find_child("Player", true, false).died.connect(_end_game)
+	var ability_progress = $CanvasLayer/PanelContainer2/MarginContainer/ProgressBar
+	ability_progress.max_value = $Player.kills_for_ability_use
+	$Player.update_ability_meter.connect(ability_progress._on_ability_meter_update)
 
 
 func spawn_enemies():

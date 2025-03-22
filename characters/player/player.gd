@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal died()
+signal update_ability_meter(value)
 
 # Define states using an enumeration
 enum State { IDLE, RUNNING }
@@ -10,6 +11,7 @@ enum _Direction {UP, DOWN, LEFT, RIGHT}
 const PUSH_FORCE := 10
 const MIN_PUSH_FORCE := 10
 const SPEED = 150
+@export var kills_for_ability_use = 10
 @export var bullet_speed = 100
 @export var fire_rate = 0.2
 var can_fire = true
@@ -22,6 +24,8 @@ var bullet = preload("res://characters/player/patrone.tscn")
 var current_state = State.IDLE
 var _last_direction = _Direction.DOWN
 
+var kills_before_ability_reset = 0
+var ability_meter = 0
 
 @onready var movement_animation = $MovementAnimation
 @onready var gun_animation = $GunAnimation
@@ -46,6 +50,11 @@ func _ready():
 
 
 func _physics_process(_delta):
+	var new_ability_meter = StatsHolder.kill_counter-kills_before_ability_reset
+	if ability_meter != new_ability_meter:
+		ability_meter = new_ability_meter
+		update_ability_meter.emit(ability_meter)
+		
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
 	velocity = direction * SPEED
@@ -76,7 +85,8 @@ func _physics_process(_delta):
 	# direction can be influenced by shooting direction on idle
 	set_animation(direction)
 	
-	if Input.is_action_just_pressed("ability"):
+	
+	if Input.is_action_just_pressed("ability") and ability_meter>=kills_for_ability_use:
 		explosion_animation.play("explosion")
 
 
@@ -218,3 +228,9 @@ func _explosion_kill():
 		box.get_parent().queue_free()
 		var kills = StatsHolder.kill_counter + 1
 		StatsHolderClass.update_stat(StatsHolderClass.Stats.KILLCOUNTER, kills)
+
+
+func _reset_ability_meter():
+	kills_before_ability_reset = StatsHolder.kill_counter
+	ability_meter = 0
+	update_ability_meter.emit(0)
