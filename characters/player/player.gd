@@ -199,7 +199,6 @@ func _on_fire_timer_timeout():
 
 func _on_damage_taken(_damage, health):
 	if health <= 0:
-		get_tree().paused = true
 		died.emit()
 
 

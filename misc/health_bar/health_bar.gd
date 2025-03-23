@@ -1,4 +1,4 @@
-extends ProgressBar
+extends TextureProgressBar
 
 @export var hurt_box: HurtBox
 

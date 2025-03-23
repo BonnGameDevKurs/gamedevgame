@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://oxf1q5fue6eu"]
+
+[ext_resource type="Texture2D" uid="uid://dj6w6vm0utqmv" path="res://assets/ui/button.png" id="1_02o2d"]
+[ext_resource type="Texture2D" uid="uid://dioudxct7ju0b" path="res://assets/ui/button-pressed.png" id="2_n6sbw"]
+[ext_resource type="Texture2D" uid="uid://snmxrwn1ku54" path="res://assets/ui/button-hover.png" id="3_h8kx6"]
+[ext_resource type="Script" uid="uid://dfd781o6iosd0" path="res://misc/custom_button/custom_button.gd" id="4_emdoj"]
+
+[node name="custom_button" type="TextureButton"]
+offset_right = 60.0
+offset_bottom = 20.0
+texture_normal = ExtResource("1_02o2d")
+texture_pressed = ExtResource("2_n6sbw")
+texture_hover = ExtResource("3_h8kx6")
+script = ExtResource("4_emdoj")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1

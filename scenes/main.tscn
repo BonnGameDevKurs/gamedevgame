@@ -1,20 +1,17 @@
-[gd_scene load_steps=12 format=4 uid="uid://h164m4d5wn4j"]
+[gd_scene load_steps=13 format=4 uid="uid://h164m4d5wn4j"]
 
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="1_6gmmr"]
 [ext_resource type="Script" uid="uid://u04vv6qah2ac" path="res://scenes/main.gd" id="1_tefeu"]
 [ext_resource type="TileSet" uid="uid://q3sv4f0sexqr" path="res://assets/tilesets/background/background_tileset.tres" id="2_85g3d"]
-[ext_resource type="PackedScene" uid="uid://bkhcmswqnxk1i" path="res://misc/keg/keg.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bkhcmswqnxk1i" path="res://misc/football/football.tscn" id="3_tbgi4"]
 [ext_resource type="FontFile" uid="uid://bug4bpkhu10u5" path="res://assets/nokiafc22.ttf" id="5_tipki"]
 [ext_resource type="Script" uid="uid://dg8iq2kypf2x6" path="res://scenes/ability_bar.gd" id="7_85g3d"]
 [ext_resource type="PackedScene" uid="uid://cj3rfysoalbsb" path="res://menus/death_screen/death_screen.tscn" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://c666rt15y1p67" path="res://misc/kill_counter_label.gd" id="8_tipki"]
+[ext_resource type="Texture2D" uid="uid://cfchqeyg1vtjv" path="res://assets/ui/manabar-bg.png" id="8_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://nvsa1hfsclia" path="res://characters/enemy/enemy.tscn" id="9_85g3d"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85g3d"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_choun"]
-bg_color = Color(1, 0, 0, 1)
+[ext_resource type="Texture2D" uid="uid://e7wh4qmjrdx5" path="res://assets/ui/manabar.png" id="9_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://bbdfgudxbjle5" path="res://menus/pause_menu/PauseMenu.tscn" id="12_eb6dy"]
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -38,23 +35,22 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0
 
-[node name="Keg" parent="." instance=ExtResource("3_tbgi4")]
-position = Vector2(94, 56)
+[node name="StatsLayer" type="CanvasLayer" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+[node name="KillCounter" type="PanelContainer" parent="StatsLayer"]
 offset_left = 2.0
 offset_top = 2.0
-offset_right = 32.0
-offset_bottom = 12.0
+offset_right = 33.0
+offset_bottom = 16.0
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="StatsLayer/KillCounter"]
 layout_mode = 2
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_right = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="StatsLayer/KillCounter/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 4
+
+[node name="Label" type="Label" parent="StatsLayer/KillCounter/CenterContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_tipki")
@@ -62,51 +58,53 @@ theme_override_font_sizes/font_size = 6
 text = "Kills: 0"
 script = ExtResource("8_tipki")
 
-[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
+[node name="PanelContainer2" type="PanelContainer" parent="StatsLayer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 10.0
+offset_left = -34.0
+offset_bottom = 13.0
 grow_horizontal = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="StatsLayer/PanelContainer2"]
 layout_mode = 2
-theme_override_constants/margin_left = 1
 theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/PanelContainer2/MarginContainer"]
+[node name="ProgressBar" type="TextureProgressBar" parent="StatsLayer/PanelContainer2/MarginContainer"]
 layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_85g3d")
-theme_override_styles/fill = SubResource("StyleBoxFlat_choun")
 max_value = 10.0
-show_percentage = false
+texture_under = ExtResource("8_ya4ey")
+texture_progress = ExtResource("9_eb6dy")
 script = ExtResource("7_85g3d")
+
+[node name="OptionsLayer" parent="." instance=ExtResource("12_eb6dy")]
 
 [node name="Enemy" parent="." instance=ExtResource("9_85g3d")]
 position = Vector2(61, 24)
 
-[node name="Keg2" parent="." instance=ExtResource("3_tbgi4")]
+[node name="Football" parent="." instance=ExtResource("3_tbgi4")]
 position = Vector2(188, 112)
 
-[node name="Keg3" parent="." instance=ExtResource("3_tbgi4")]
+[node name="Football2" parent="." instance=ExtResource("3_tbgi4")]
 position = Vector2(60, 121)
 
-[node name="Keg4" parent="." instance=ExtResource("3_tbgi4")]
+[node name="Football3" parent="." instance=ExtResource("3_tbgi4")]
 position = Vector2(280, 51)
 
-[node name="Keg5" parent="." instance=ExtResource("3_tbgi4")]
+[node name="Football4" parent="." instance=ExtResource("3_tbgi4")]
 position = Vector2(227, 175)
 
-[node name="Keg6" parent="." instance=ExtResource("3_tbgi4")]
+[node name="Football5" parent="." instance=ExtResource("3_tbgi4")]
 position = Vector2(129, 167)
 
-[node name="Keg7" parent="." instance=ExtResource("3_tbgi4")]
+[node name="Football6" parent="." instance=ExtResource("3_tbgi4")]
 position = Vector2(169, 33)
 
+[node name="Football7" parent="." instance=ExtResource("3_tbgi4")]
+position = Vector2(94, 56)
+
 [node name="DeathLayer" type="CanvasLayer" parent="."]
-layer = 4
+layer = 6
 visible = false
 
 [node name="DeathScreen" parent="DeathLayer" instance=ExtResource("7_o6xl0")]

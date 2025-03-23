@@ -17,7 +17,6 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
-OptionsMenu="*res://menus/options_menu/OptionsMenu.tscn"
 StatsHolder="*res://misc/stats_holder/stats_holder.tscn"
 
 [display]
@@ -34,6 +33,11 @@ window/stretch/aspect="keep_width"
 Bullet=""
 Player=""
 Enemy="Group for Enemies"
+
+[gui]
+
+theme/custom="uid://qje0rbs2ornu"
+theme/custom_font="uid://bug4bpkhu10u5"
 
 [input]
 

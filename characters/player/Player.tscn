@@ -1,10 +1,12 @@
-[gd_scene load_steps=33 format=3 uid="uid://dn5pmqnms068s"]
+[gd_scene load_steps=35 format=3 uid="uid://dn5pmqnms068s"]
 
 [ext_resource type="Script" uid="uid://dfkyw376uwd0x" path="res://characters/player/player.gd" id="1_q3uxj"]
 [ext_resource type="Texture2D" uid="uid://dcev27m6raofu" path="res://assets/player/wusel-spritesheet.png" id="2_jr8aq"]
 [ext_resource type="Script" uid="uid://b1w1jgjnlxvm1" path="res://misc/hurt_box/hurt_box.gd" id="3_ibj0t"]
 [ext_resource type="Texture2D" uid="uid://c7tmmo3cksjmf" path="res://assets/player/gun-sheet.png" id="4_awrgq"]
+[ext_resource type="Texture2D" uid="uid://ljreq0cweqxx" path="res://assets/ui/hpbar-bg.png" id="4_uu5sf"]
 [ext_resource type="PackedScene" uid="uid://wknbi2gm8gp" path="res://misc/health_bar/health_bar.tscn" id="4_xoccb"]
+[ext_resource type="Texture2D" uid="uid://bmpnju58jujsi" path="res://assets/ui/hpbar.png" id="5_kjpio"]
 [ext_resource type="Texture2D" uid="uid://chff8bjwg11td" path="res://assets/explosion.png" id="6_awrgq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr8aq"]
@@ -206,7 +208,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-6, -13)]
+"values": [Vector2(-6, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -245,7 +247,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-6, -9)]
+"values": [Vector2(-6, 4)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -284,7 +286,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(6, -9)]
+"values": [Vector2(6, 4)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -323,7 +325,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-6, -13)]
+"values": [Vector2(-6, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -362,7 +364,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-6, -9)]
+"values": [Vector2(-6, 4)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -401,7 +403,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(6, -9)]
+"values": [Vector2(6, 4)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -440,7 +442,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(6, -13)]
+"values": [Vector2(6, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -479,7 +481,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(8, -17)]
+"values": [Vector2(8, -4)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -518,7 +520,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-8, -17)]
+"values": [Vector2(-8, -4)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -671,8 +673,12 @@ libraries = {
 }
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("hurt_box") instance=ExtResource("4_xoccb")]
-offset_top = -32.0
-offset_bottom = -28.0
+offset_left = -14.0
+offset_top = -33.5
+offset_right = 14.0
+offset_bottom = -28.5
+texture_under = ExtResource("4_uu5sf")
+texture_progress = ExtResource("5_kjpio")
 hurt_box = NodePath("../HurtBox")
 
 [node name="Timer" type="Timer" parent="."]
@@ -680,14 +686,15 @@ one_shot = true
 
 [node name="GunSprite" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-6, -13)
+position = Vector2(-6, 0)
 texture = ExtResource("4_awrgq")
+offset = Vector2(0, -13)
 hframes = 4
 frame = 3
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
-position = Vector2(0, -13)
 texture = ExtResource("2_jr8aq")
+offset = Vector2(0, -13)
 hframes = 4
 vframes = 8
 
