@@ -1,4 +1,4 @@
-extends ProgressBar
+extends TextureProgressBar
 
 
 func _on_ability_meter_update(ability):

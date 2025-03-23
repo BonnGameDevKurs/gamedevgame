@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cj3rfysoalbsb"]
+[gd_scene load_steps=5 format=3 uid="uid://cj3rfysoalbsb"]
 
 [ext_resource type="Script" uid="uid://dqfxoxf84divd" path="res://menus/death_screen/death_screen.gd" id="1_uktrk"]
 [ext_resource type="FontFile" uid="uid://bug4bpkhu10u5" path="res://assets/nokiafc22.ttf" id="2_mq3n5"]
+[ext_resource type="PackedScene" uid="uid://oxf1q5fue6eu" path="res://misc/custom_button/custom_button.tscn" id="3_2cgf2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mq3n5"]
 
@@ -14,7 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uktrk")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,12 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme_override_constants/margin_top = 50
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
@@ -49,9 +45,8 @@ layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxEmpty_mq3n5")
 
-[node name="Button" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Button" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("3_2cgf2")]
 process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("2_mq3n5")
 text = "Restart"

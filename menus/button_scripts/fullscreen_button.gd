@@ -1,4 +1,4 @@
-extends CheckButton
+extends CustomButton
 
 var fullscreen: bool = false
 func _ready():
@@ -6,28 +6,31 @@ func _ready():
 	config.load("user://config.cfg")
 	
 	if config.has_section("display"):
-		match config.get_value("display", "fullscreen"):
-			true:
-				self.button_pressed = true
-				_on_toggled(true)
-			false:
-				button_pressed = false
-				_on_toggled(false)
+		fullscreen = config.get_value("display", "fullscreen")
+	
+	set_fullscreen()
 
 func _process(_delta):
 	var F11 = Input.is_action_just_pressed("F11")
 	if F11:
-		_on_toggled(!fullscreen)
+		toggle_fullscren()
 
-func _on_toggled(toggled_on):
-	if toggled_on:
+func _on_pressed():
+	toggle_fullscren()
+
+func toggle_fullscren():
+	fullscreen = !fullscreen
+	set_fullscreen()
+
+func set_fullscreen():
+	if fullscreen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		self.label.text = "Maximize"
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+		self.label.text = "Fullscreen"
 
-	button_pressed = toggled_on
-	fullscreen = toggled_on
 	var config = ConfigFile.new()
 	config.load("user://config.cfg")
-	config.set_value("display", "fullscreen", toggled_on)
+	config.set_value("display", "fullscreen", fullscreen)
 	config.save("user://config.cfg")

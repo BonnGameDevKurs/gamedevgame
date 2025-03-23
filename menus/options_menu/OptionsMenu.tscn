@@ -1,27 +1,22 @@
 [gd_scene load_steps=7 format=3 uid="uid://bbdfgudxbjle5"]
 
-[ext_resource type="Script" uid="uid://ctywqwkudcho7" path="res://menus/options_menu/full_screen.gd" id="1_exki5"]
 [ext_resource type="Script" uid="uid://cldmwib113sm3" path="res://menus/options_menu/options_menu.gd" id="1_kv6tk"]
-[ext_resource type="Script" uid="uid://tnipq7flcp27" path="res://menus/options_menu/exit_button.gd" id="2_bnqm3"]
-[ext_resource type="FontFile" uid="uid://bug4bpkhu10u5" path="res://assets/nokiafc22.ttf" id="2_shqvc"]
+[ext_resource type="PackedScene" uid="uid://oxf1q5fue6eu" path="res://misc/custom_button/custom_button.tscn" id="2_ftwbq"]
+[ext_resource type="Script" uid="uid://bmsvujjtyt73y" path="res://menus/button_scripts/exit_button.gd" id="3_378i5"]
+[ext_resource type="Script" uid="uid://7nblh0fnn86q" path="res://menus/button_scripts/fullscreen_button.gd" id="3_shqvc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnqm3"]
 bg_color = Color(0.192157, 0.2, 0.219608, 0.427451)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_378i5"]
-bg_color = Color(0.192157, 0.2, 0.219608, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-border_blend = true
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[sub_resource type="GDScript" id="GDScript_shqvc"]
+script/source = "extends CustomButton
 
-[node name="CanvasLayer" type="CanvasLayer"]
+func _on_pressed():
+	get_tree().paused = false
+	get_tree().call_deferred(\"change_scene_to_file\", \"res://menus/start_menu/start_menu.tscn\")
+"
+
+[node name="OptionsLayer" type="CanvasLayer"]
 process_mode = 3
 layer = 5
 visible = false
@@ -40,7 +35,6 @@ layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/CenterContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_378i5")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer"]
 layout_mode = 2
@@ -49,23 +43,23 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer"]
+[node name="Menu" type="VBoxContainer" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="FullscreenButton" type="CheckButton" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="MainMenuButton" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("2_ftwbq")]
 layout_mode = 2
-theme_override_constants/icon_max_width = 14
-theme_override_fonts/font = ExtResource("2_shqvc")
-theme_override_font_sizes/font_size = 8
-text = "Fullscreen"
-script = ExtResource("1_exki5")
+script = SubResource("GDScript_shqvc")
+text = "Main Menu"
 
-[node name="ExitButton" type="Button" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="FullscreenButton" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("2_ftwbq")]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_shqvc")
-theme_override_font_sizes/font_size = 8
-text = "Exit to Desktop"
-script = ExtResource("2_bnqm3")
+script = ExtResource("3_shqvc")
 
-[connection signal="toggled" from="PanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/FullscreenButton" to="PanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/FullscreenButton" method="_on_toggled"]
-[connection signal="pressed" from="PanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ExitButton" to="PanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ExitButton" method="_on_pressed"]
+[node name="ExitButton" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("2_ftwbq")]
+layout_mode = 2
+script = ExtResource("3_378i5")
+text = "Exit"
+
+[connection signal="pressed" from="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/MainMenuButton" to="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/MainMenuButton" method="_on_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" to="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" method="_on_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/ExitButton" to="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/ExitButton" method="_on_pressed"]
