@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="2_w37o8"]
 [ext_resource type="Script" uid="uid://wblgqtpa5x13" path="res://menus/start_menu/static_player.gd" id="3_2fv6y"]
 [ext_resource type="Texture2D" uid="uid://cycu8rpn6dbm5" path="res://assets/football.png" id="4_w37o8"]
-[ext_resource type="Script" uid="uid://d3sw0dplqkg67" path="res://menus/start_menu/start_button.gd" id="5_un03f"]
-[ext_resource type="FontFile" uid="uid://bug4bpkhu10u5" path="res://assets/nokiafc22.ttf" id="5_w37o8"]
-[ext_resource type="Script" uid="uid://d30ps3netuafa" path="res://menus/start_menu/options_button.gd" id="6_jxplj"]
+[ext_resource type="PackedScene" uid="uid://oxf1q5fue6eu" path="res://misc/custom_button/custom_button.tscn" id="6_g3ifd"]
+[ext_resource type="Script" uid="uid://7nblh0fnn86q" path="res://menus/button_scripts/fullscreen_button.gd" id="6_w37o8"]
+[ext_resource type="Script" uid="uid://bmsvujjtyt73y" path="res://menus/button_scripts/exit_button.gd" id="7_w37o8"]
 
 [sub_resource type="Animation" id="Animation_h61rw"]
 resource_name = "CameraSlowlyMoveUp"
@@ -46,12 +46,12 @@ _data = {
 &"RESET": SubResource("Animation_fcv5n")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h61rw"]
-bg_color = Color(0.192157, 0.2, 0.219608, 0.772549)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[sub_resource type="GDScript" id="GDScript_w37o8"]
+script/source = "extends CustomButton
+
+func _on_pressed():
+	get_tree().call_deferred(\"change_scene_to_file\", \"res://scenes/main.tscn\")
+"
 
 [node name="Main" type="Node2D"]
 
@@ -105,7 +105,6 @@ size_flags_vertical = 4
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h61rw")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
 layout_mode = 2
@@ -116,33 +115,29 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
+[node name="Menu" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="StartButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="StartButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("5_w37o8")
-theme_override_font_sizes/font_size = 6
-text = "START"
-script = ExtResource("5_un03f")
+script = SubResource("GDScript_w37o8")
+text = "Start"
 
-[node name="StoryButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ControlsButtons" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("5_w37o8")
-theme_override_font_sizes/font_size = 6
-text = "STORY"
+text = "Controls"
 
-[node name="OptionsButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="FullscreenButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("5_w37o8")
-theme_override_font_sizes/font_size = 6
-text = "OPTIONS"
-script = ExtResource("6_jxplj")
+script = ExtResource("6_w37o8")
 
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/StartButton" to="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/StartButton" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsButton" to="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsButton" method="_on_pressed"]
+[node name="ExitButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
+layout_mode = 2
+script = ExtResource("7_w37o8")
+text = "Exit"
+
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/StartButton" to="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/StartButton" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" to="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/ExitButton" to="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/ExitButton" method="_on_pressed"]

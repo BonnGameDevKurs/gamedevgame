@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://qje0rbs2ornu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y61vb"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 0.572549)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[resource]
+Label/font_sizes/font_size = 8
+MarginContainer/constants/margin_bottom = 2
+MarginContainer/constants/margin_left = 2
+MarginContainer/constants/margin_right = 2
+MarginContainer/constants/margin_top = 2
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_y61vb")
