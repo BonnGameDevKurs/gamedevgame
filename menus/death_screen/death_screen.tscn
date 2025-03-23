@@ -31,12 +31,23 @@ theme_override_constants/margin_top = 50
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="LabelF" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_mq3n5")
 theme_override_font_sizes/font_size = 24
 text = "YOU DIED!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelScore" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelNewHighscore" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 

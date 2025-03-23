@@ -40,5 +40,10 @@ func _on_spawn_timer_timeout():
 
 
 func _end_game():
+	var stats_holder: StatsHolderClass = $"/root/StatsHolder"
+	stats_holder.update_stat(
+			stats_holder.Stats.HIGHSCORE,
+			stats_holder.kill_counter)
 	get_tree().paused = true
+	$"DeathLayer/DeathScreen".init()
 	$DeathLayer.visible = true
