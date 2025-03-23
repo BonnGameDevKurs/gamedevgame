@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://dplnmxkaqw7qv"]
+[gd_scene load_steps=19 format=4 uid="uid://dplnmxkaqw7qv"]
 
 [ext_resource type="TileSet" uid="uid://o2pw3q66ur8l" path="res://assets/tilesets/grass_water_dirt/grass_water_dirt_tileset.tres" id="1_g3ifd"]
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="2_w37o8"]
@@ -7,6 +7,20 @@
 [ext_resource type="PackedScene" uid="uid://oxf1q5fue6eu" path="res://misc/custom_button/custom_button.tscn" id="6_g3ifd"]
 [ext_resource type="Script" uid="uid://7nblh0fnn86q" path="res://menus/button_scripts/fullscreen_button.gd" id="6_w37o8"]
 [ext_resource type="Script" uid="uid://bmsvujjtyt73y" path="res://menus/button_scripts/exit_button.gd" id="7_w37o8"]
+[ext_resource type="Texture2D" uid="uid://d3chmr0jgjmye" path="res://assets/ui/wasd.png" id="8_un03f"]
+[ext_resource type="Texture2D" uid="uid://ub604tlhqs3b" path="res://assets/ui/arrows.png" id="9_jxplj"]
+[ext_resource type="Texture2D" uid="uid://cukl3b36f8a7d" path="res://assets/ui/space.png" id="10_rov77"]
+
+[sub_resource type="GDScript" id="GDScript_rov77"]
+script/source = "extends Node2D
+
+func _process(_delta):
+	var esc = Input.is_action_just_pressed(\"ESC\")
+	if esc:
+		if $ControlsLayer.visible:
+			$ControlsLayer.visible = false
+			$MenuLayer.visible = true
+"
 
 [sub_resource type="Animation" id="Animation_h61rw"]
 resource_name = "CameraSlowlyMoveUp"
@@ -46,11 +60,25 @@ _data = {
 &"RESET": SubResource("Animation_fcv5n")
 }
 
+[sub_resource type="GDScript" id="GDScript_jxplj"]
+script/source = "extends CanvasLayer
+
+func toggle_visible():
+	visible = !visible
+"
+
 [sub_resource type="GDScript" id="GDScript_w37o8"]
 script/source = "extends CustomButton
 
 func _on_pressed():
 	get_tree().call_deferred(\"change_scene_to_file\", \"res://scenes/main.tscn\")
+"
+
+[sub_resource type="GDScript" id="GDScript_un03f"]
+script/source = "extends CanvasLayer
+
+func toggle_visible():
+	visible = !visible
 "
 
 [sub_resource type="GDScript" id="GDScript_2fv6y"]
@@ -61,6 +89,7 @@ func _ready():
 "
 
 [node name="Main" type="Node2D"]
+script = SubResource("GDScript_rov77")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAKAAcABAAFAAAAAAAKAAYABAADAAEAAAAKAAUABAADAAAAAAAKAAQABAADAAAAAAAKAAMABAADAAAAAAAKAAIABAADAAAAAAAKAAEABAADAAAAAAAKAAAABAADAAAAAAAKAP//BAAFAAIAAAAKAP7/BAAFAAEAAAAKAP3/BAAFAAEAAAAJAAcABAAFAAAAAAAJAAYABAADAAEAAAAJAAUABAADAAEAAAAJAAQABAADAAAAAAAJAAMABAADAAEAAAAJAAIABAADAAEAAAAJAAEABAADAAAAAAAJAAAABAADAAEAAAAJAP//BAAFAAIAAAAJAP7/BAAFAAEAAAAJAP3/BAAFAAEAAAAIAAcABAAFAAAAAAAIAAYABAADAAEAAAAIAAUABAADAAEAAAAIAAQABAADAAEAAAAIAAMABAADAAAAAAAIAAIABAADAAAAAAAIAAEABAADAAAAAAAIAAAABAADAAEAAAAIAP//BAAFAAIAAAAIAP7/BAAFAAEAAAAIAP3/BAAFAAEAAAAHAAcABAAFAAAAAAAHAAYABAADAAAAAAAHAAUABAADAAEAAAAHAAQABAADAAAAAAAHAAMABAADAAAAAAAHAAIABAADAAAAAAAHAAEABAADAAAAAAAHAAAABAADAAAAAAAHAP//BAAFAAIAAAAHAP7/BAAFAAEAAAAHAP3/BAAFAAEAAAAGAAcABAAFAAAAAAAGAAYABAADAAEAAAAGAAUABAADAAEAAAAGAAQABAADAAEAAAAGAAMABAADAAEAAAAGAAIABAADAAEAAAAGAAEABAADAAEAAAAGAAAABAADAAEAAAAGAP//BAAFAAIAAAAGAP7/BAAFAAEAAAAGAP3/BAAFAAEAAAAFAAcABAAFAAAAAAAFAAYABAADAAEAAAAFAAUABAADAAEAAAAFAAQABAADAAEAAAAFAAMABAADAAAAAAAFAAIABAADAAAAAAAFAAEABAADAAAAAAAFAAAABAADAAEAAAAFAP//BAAFAAIAAAAFAP7/BAAFAAEAAAAFAP3/BAAFAAEAAAAEAAcABAAFAAAAAAAEAAYABAADAAAAAAAEAAUABAADAAAAAAAEAAQABAADAAEAAAAEAAMABAADAAAAAAAEAAIABAADAAAAAAAEAAEABAADAAAAAAAEAAAABAADAAEAAAAEAP//BAAFAAIAAAAEAP7/BAAFAAEAAAAEAP3/BAAFAAEAAAADAAcABAAFAAAAAAADAAYABAADAAEAAAADAAUABAADAAEAAAADAAQABAADAAEAAAADAAMABAADAAEAAAADAAIABAADAAEAAAADAAEABAADAAAAAAADAAAABAADAAEAAAADAP//BAAFAAIAAAADAP7/BAAFAAEAAAADAP3/BAAFAAEAAAACAAcABAAFAAAAAAACAAYABAADAAEAAAACAAUABAADAAEAAAACAAQABAADAAEAAAACAAMABAADAAAAAAACAAIABAADAAAAAAACAAEABAADAAEAAAACAAAABAADAAAAAAACAP//BAAFAAIAAAACAP7/BAAFAAEAAAACAP3/BAAFAAEAAAABAAcABAAFAAAAAAABAAYABAADAAEAAAABAAUABAADAAEAAAABAAQABAADAAEAAAABAAMABAADAAAAAAABAAIABAADAAAAAAABAAEABAADAAEAAAABAAAABAADAAAAAAABAP//BAAFAAIAAAABAP7/BAAFAAEAAAABAP3/BAAFAAEAAAAAAAcABAAFAAAAAAAAAAYABAADAAAAAAAAAAUABAADAAAAAAAAAAQABAADAAEAAAAAAAMABAADAAAAAAAAAAIABAADAAAAAAAAAAEABAADAAIAAAAAAAAABAADAAEAAAAAAP//BAAFAAIAAAAAAP7/BAAFAAEAAAAAAP3/BAAFAAEAAAD//wcABAAHAAMAAAD//wYABAAGAAEAAAD//wUABAAGAAEAAAD//wQABAAGAAEAAAD//wMABAAGAAEAAAD//wIABAAGAAEAAAD//wEABAAGAAEAAAD//wAABAAGAAEAAAD/////BAAHAAIAAAD///7/BAAFAAEAAAD///3/BAAFAAEAAAD+/wcABAAFAAEAAAD+/wYABAAFAAEAAAD+/wUABAAFAAEAAAD+/wQABAAFAAEAAAD+/wMABAAFAAEAAAD+/wIABAAFAAEAAAD+/wEABAAFAAEAAAD+/wAABAAFAAEAAAD+////BAAFAAEAAAD+//7/BAAFAAEAAAD+//3/BAAFAAEAAAD9/wcABAAFAAEAAAD9/wYABAAFAAEAAAD9/wUABAAFAAEAAAD9/wQABAAFAAEAAAD9/wMABAAFAAEAAAD9/wIABAAFAAEAAAD9/wEABAAFAAEAAAD9/wAABAAFAAEAAAD9////BAAFAAEAAAD9//7/BAAFAAEAAAD9//3/BAAFAAEAAAAMAAgABAAFAAEAAAAMAAcABAAFAAEAAAAMAAYABAAFAAEAAAAMAAUABAAFAAEAAAAMAAQABAAFAAEAAAAMAAMABAAFAAEAAAAMAAIABAAFAAEAAAAMAAEABAAFAAEAAAAMAAAABAAFAAEAAAAMAP//BAAFAAEAAAAMAP7/BAAFAAEAAAAMAP3/BAAFAAEAAAAMAPz/BAAFAAEAAAAMAPv/BAAFAAEAAAALAAgABAAFAAEAAAALAAcABAAIAAMAAAALAAYABAAEAAEAAAALAAUABAAEAAEAAAALAAQABAAEAAEAAAALAAMABAAEAAEAAAALAAIABAAEAAEAAAALAAEABAAEAAEAAAALAAAABAAEAAEAAAALAP//BAAIAAIAAAALAP7/BAAFAAEAAAALAP3/BAAFAAEAAAALAPz/BAAFAAEAAAALAPv/BAAFAAEAAAAKAAgABAAFAAEAAAAKAPz/BAAFAAEAAAAKAPv/BAAFAAEAAAAJAAgABAAFAAEAAAAJAPz/BAAFAAEAAAAJAPv/BAAFAAEAAAAIAAgABAAFAAEAAAAIAPz/BAAFAAEAAAAIAPv/BAAFAAEAAAAHAAgABAAFAAEAAAAHAPz/BAAFAAEAAAAHAPv/BAAFAAEAAAAGAAgABAAFAAEAAAAGAPz/BAAFAAEAAAAGAPv/BAAFAAEAAAAFAAgABAAFAAEAAAAFAPz/BAAFAAEAAAAFAPv/BAAFAAEAAAAEAAgABAAFAAEAAAAEAPz/BAAFAAEAAAAEAPv/BAAFAAEAAAADAAgABAAFAAEAAAADAPz/BAAFAAEAAAADAPv/BAAFAAEAAAACAAgABAAFAAEAAAACAPz/BAAFAAEAAAACAPv/BAAFAAEAAAABAAgABAAFAAEAAAABAPz/BAAFAAEAAAABAPv/BAAFAAEAAAAAAAgABAAFAAEAAAAAAPz/BAAFAAEAAAAAAPv/BAAFAAEAAAD//wgABAAFAAEAAAD///z/BAAFAAEAAAD///v/BAAFAAEAAAD+/wgABAAFAAEAAAD+//z/BAAFAAEAAAD+//v/BAAFAAEAAAD9/wgABAAFAAEAAAD9//z/BAAFAAEAAAD9//v/BAAFAAEAAAD8/wgABAAFAAEAAAD8/wcABAAFAAEAAAD8/wYABAAFAAEAAAD8/wUABAAFAAEAAAD8/wQABAAFAAEAAAD8/wMABAAFAAEAAAD8/wIABAAFAAEAAAD8/wEABAAFAAEAAAD8/wAABAAFAAEAAAD8////BAAFAAEAAAD8//7/BAAFAAEAAAD8//3/BAAFAAEAAAD8//z/BAAFAAEAAAD8//v/BAAFAAEAAAD7/wgABAAFAAEAAAD7/wcABAAFAAEAAAD7/wYABAAFAAEAAAD7/wUABAAFAAEAAAD7/wQABAAFAAEAAAD7/wMABAAFAAEAAAD7/wIABAAFAAEAAAD7/wEABAAFAAEAAAD7/wAABAAFAAEAAAD7////BAAFAAEAAAD7//7/BAAFAAEAAAD7//3/BAAFAAEAAAD7//z/BAAFAAEAAAD7//v/BAAFAAEAAAD6/wgABAAFAAEAAAD6/wcABAAFAAEAAAD6/wYABAAFAAEAAAD6/wUABAAFAAEAAAD6/wQABAAFAAEAAAD6/wMABAAFAAEAAAD6/wIABAAFAAEAAAD6/wEABAAFAAEAAAD6/wAABAAFAAEAAAD6////BAAFAAEAAAD6//7/BAAFAAEAAAD6//3/BAAFAAEAAAD6//z/BAAFAAEAAAD6//v/BAAFAAEAAAD6/wkABAAFAAEAAAD7/wkABAAFAAEAAAD8/wkABAAFAAEAAAD9/wkABAAFAAEAAAD+/wkABAAFAAEAAAD//wkABAAFAAEAAAAAAAkABAAFAAEAAAABAAkABAAFAAEAAAACAAkABAAFAAEAAAADAAkABAAFAAEAAAAEAAkABAAFAAEAAAAFAAkABAAFAAEAAAAKAAkABAAFAAEAAAALAAkABAAFAAEAAAAMAAkABAAFAAEAAAAGAAkABAAFAAEAAAAHAAkABAAFAAEAAAAIAAoABAAFAAEAAAAIAAkABAAFAAEAAAAJAAkABAAFAAEAAAANAAkABAAFAAEAAAANAAoABAAFAAEAAAAMAAoABAAFAAEAAAALAAoABAAFAAEAAAAKAAoABAAFAAEAAAAJAAoABAAFAAEAAAAHAAoABAAFAAEAAAAGAAoABAAFAAEAAAAFAAoABAAFAAEAAAD5/wkABAAFAAEAAAD5/woABAAFAAEAAAD6/woABAAFAAEAAAD7/woABAAFAAEAAAD8/woABAAFAAEAAAD9/woABAAFAAEAAAD+/woABAAFAAEAAAD//woABAAFAAEAAAAAAAoABAAFAAEAAAABAAoABAAFAAEAAAACAAoABAAFAAEAAAADAAoABAAFAAEAAAAEAAoABAAFAAEAAAANAAgABAAFAAEAAAANAAcABAAFAAEAAAANAAYABAAFAAEAAAAOAAYABAAFAAEAAAAOAAUABAAFAAEAAAAOAAQABAAFAAEAAAANAAQABAAFAAEAAAANAAMABAAFAAEAAAANAAIABAAFAAEAAAANAAEABAAFAAEAAAANAAUABAAFAAEAAAANAAAABAAFAAEAAAANAP//BAAFAAEAAAANAP7/BAAFAAEAAAANAP3/BAAFAAEAAAANAPz/BAAFAAEAAAANAPv/BAAFAAEAAAANAPr/BAAFAAEAAAAOAPv/BAAFAAEAAAAOAPz/BAAFAAEAAAAOAP3/BAAFAAEAAAAOAP7/BAAFAAEAAAAOAP//BAAFAAEAAAAOAAAABAAFAAEAAAAOAAEABAAFAAEAAAAOAAIABAAFAAEAAAAOAAMABAAFAAEAAAAPAAUABAAFAAEAAAAPAAYABAAFAAEAAAAPAAcABAAFAAEAAAAPAAgABAAFAAEAAAAOAAgABAAFAAEAAAAOAAkABAAFAAEAAAAOAAoABAAFAAEAAAANAAsABAAFAAEAAAAOAAcABAAFAAEAAAAPAAkABAAFAAEAAAAPAAoABAAFAAEAAAAPAAsABAAFAAEAAAAOAAsABAAFAAEAAAAMAAsABAAFAAEAAAALAAsABAAFAAEAAAAKAAsABAAFAAEAAAAJAAsABAAFAAEAAAAIAAsABAAFAAEAAAAHAAsABAAFAAEAAAAGAAsABAAFAAEAAAAFAAsABAAFAAEAAAAEAAsABAAFAAEAAAADAAsABAAFAAEAAAACAAsABAAFAAEAAAABAAsABAAFAAEAAAAAAAsABAAFAAEAAAD//wsABAAFAAEAAAD+/wsABAAFAAEAAAD6/wsABAAFAAEAAAD5/wsABAAFAAEAAAD7/wsABAAFAAEAAAD8/wsABAAFAAEAAAD9/wsABAAFAAEAAAD5/wgABAAFAAEAAAD5/wcABAAFAAEAAAD5/wYABAAFAAEAAAD5/wUABAAFAAEAAAD5/wQABAAFAAEAAAD5/wMABAAFAAEAAAD5/wIABAAFAAEAAAD5/wEABAAFAAEAAAD5/wAABAAFAAEAAAD5////BAAFAAEAAAD5//7/BAAFAAEAAAD5//3/BAAFAAEAAAD5//z/BAAFAAEAAAD5//v/BAAFAAEAAAD5//r/BAAFAAEAAAD6//r/BAAFAAEAAAD7//r/BAAFAAEAAAD8//r/BAAFAAEAAAD9//r/BAAFAAEAAAD+//r/BAAFAAEAAAD///r/BAAFAAEAAAAAAPr/BAAFAAEAAAABAPr/BAAFAAEAAAACAPr/BAAFAAEAAAADAPr/BAAFAAEAAAAEAPr/BAAFAAEAAAAFAPr/BAAFAAEAAAAGAPr/BAAFAAEAAAAHAPr/BAAFAAEAAAAIAPr/BAAFAAEAAAAJAPr/BAAFAAEAAAAKAPr/BAAFAAEAAAALAPr/BAAFAAEAAAAMAPr/BAAFAAEAAAAOAPr/BAAFAAEAAAAPAPr/BAAFAAEAAAAQAPr/BAAFAAEAAAAPAPv/BAAFAAEAAAAPAPz/BAAFAAEAAAAPAP3/BAAFAAEAAAAPAP7/BAAFAAEAAAAPAAMABAAFAAEAAAAPAAQABAAFAAEAAAAPAAIABAAFAAEAAAAPAAEABAAFAAEAAAAPAAAABAAFAAEAAAAPAP//BAAFAAEAAAAQAP3/BAAFAAEAAAAQAPz/BAAFAAEAAAAQAPv/BAAFAAEAAAAQAP7/BAAFAAEAAAAQAP//BAAFAAEAAAAQAAAABAAFAAEAAAAQAAEABAAFAAEAAAAQAAIABAAFAAEAAAAQAAQABAAFAAEAAAAQAAUABAAFAAEAAAAQAAYABAAFAAEAAAAQAAcABAAFAAEAAAAQAAgABAAFAAEAAAAQAAkABAAFAAEAAAAQAAoABAAFAAEAAAAQAAsABAAFAAEAAAAQAAMABAAFAAEAAAD5/wwABAAFAAEAAAD5/w0ABAAFAAEAAAD6/w0ABAAFAAEAAAD7/w4ABAAFAAEAAAD9/w4ABAAFAAEAAAD8/w4ABAAFAAEAAAD+/w8ABAAFAAEAAAABAA8ABAAFAAEAAAAAAA8ABAAFAAEAAAD//w8ABAAFAAEAAAADAA8ABAAFAAEAAAACAA8ABAAFAAEAAAAFABAABAAFAAEAAAAEAA8ABAAFAAEAAAAHABAABAAFAAEAAAAGABAABAAFAAEAAAAIABAABAAFAAEAAAAJABAABAAFAAEAAAAJABEABAAFAAEAAAAKABEABAAFAAEAAAALABIABAAFAAEAAAAMABIABAAFAAEAAAANABMABAAFAAEAAAAQABMABAAFAAEAAAAQABIABAAFAAEAAAAQABEABAAFAAEAAAAQABAABAAFAAEAAAAQAA8ABAAFAAEAAAAQAA4ABAAFAAEAAAAQAA0ABAAFAAEAAAAQAAwABAAFAAEAAAAPABMABAAFAAEAAAAPABIABAAFAAEAAAAPABEABAAFAAEAAAAPABAABAAFAAEAAAAPAA8ABAAFAAEAAAAPAA4ABAAFAAEAAAAPAA0ABAAFAAEAAAAPAAwABAAFAAEAAAAOABMABAAFAAEAAAAOABIABAAFAAEAAAAOABEABAAFAAEAAAAOABAABAAFAAEAAAAOAA8ABAAFAAEAAAAOAA4ABAAFAAEAAAAOAA0ABAAFAAEAAAAOAAwABAAFAAEAAAANABIABAAFAAEAAAANABEABAAFAAEAAAANABAABAAFAAEAAAANAA8ABAAFAAEAAAANAA4ABAAFAAEAAAANAA0ABAAFAAEAAAANAAwABAAFAAEAAAAMABMABAAFAAEAAAAMABEABAAFAAEAAAAMABAABAAFAAEAAAAMAA8ABAAFAAEAAAAMAA4ABAAFAAEAAAAMAA0ABAAFAAEAAAAMAAwABAAFAAEAAAALABMABAAFAAEAAAALABEABAAFAAEAAAALABAABAAFAAEAAAALAA8ABAAFAAEAAAALAA4ABAAFAAEAAAALAA0ABAAFAAEAAAALAAwABAAFAAEAAAAKABMABAAFAAEAAAAKABIABAAFAAEAAAAKABAABAAFAAEAAAAKAA8ABAAFAAEAAAAKAA4ABAAFAAEAAAAKAA0ABAAFAAEAAAAKAAwABAAFAAEAAAAJABMABAAFAAEAAAAJABIABAAFAAEAAAAJAA8ABAAFAAEAAAAJAA4ABAAFAAEAAAAJAA0ABAAFAAEAAAAJAAwABAAFAAEAAAAIABMABAAFAAEAAAAIABIABAAFAAEAAAAIABEABAAFAAEAAAAIAA8ABAAFAAEAAAAIAA4ABAAFAAEAAAAIAA0ABAAFAAEAAAAIAAwABAAFAAEAAAAHABMABAAFAAEAAAAHABIABAAFAAEAAAAHABEABAAFAAEAAAAHAA8ABAAFAAEAAAAHAA4ABAAFAAEAAAAHAA0ABAAFAAEAAAAHAAwABAAFAAEAAAAGABMABAAFAAEAAAAGABIABAAFAAEAAAAGABEABAAFAAEAAAAGAA8ABAAFAAEAAAAGAA4ABAAFAAEAAAAGAA0ABAAFAAEAAAAGAAwABAAFAAEAAAAFABMABAAFAAEAAAAFABIABAAFAAEAAAAFABEABAAFAAEAAAAFAA8ABAAFAAEAAAAFAA4ABAAFAAEAAAAFAA0ABAAFAAEAAAAFAAwABAAFAAEAAAAEABMABAAFAAEAAAAEABIABAAFAAEAAAAEABEABAAFAAEAAAAEABAABAAFAAEAAAAEAA4ABAAFAAEAAAAEAA0ABAAFAAEAAAAEAAwABAAFAAEAAAADABMABAAFAAEAAAADABIABAAFAAEAAAADABEABAAFAAEAAAADABAABAAFAAEAAAADAA4ABAAFAAEAAAADAA0ABAAFAAEAAAADAAwABAAFAAEAAAACABMABAAFAAEAAAACABIABAAFAAEAAAACABEABAAFAAEAAAACABAABAAFAAEAAAACAA4ABAAFAAEAAAACAA0ABAAFAAEAAAACAAwABAAFAAEAAAABABMABAAFAAEAAAABABIABAAFAAEAAAABABEABAAFAAEAAAABABAABAAFAAEAAAABAA4ABAAFAAEAAAABAA0ABAAFAAEAAAABAAwABAAFAAEAAAAAABMABAAFAAEAAAAAABIABAAFAAEAAAAAABEABAAFAAEAAAAAABAABAAFAAEAAAAAAA4ABAAFAAEAAAAAAA0ABAAFAAEAAAAAAAwABAAFAAEAAAD//xMABAAFAAEAAAD//xIABAAFAAEAAAD//xEABAAFAAEAAAD//xAABAAFAAEAAAD//w4ABAAFAAEAAAD//w0ABAAFAAEAAAD//wwABAAFAAEAAAD+/xMABAAFAAEAAAD+/xIABAAFAAEAAAD+/xEABAAFAAEAAAD+/xAABAAFAAEAAAD+/w4ABAAFAAEAAAD+/w0ABAAFAAEAAAD+/wwABAAFAAEAAAD9/xMABAAFAAEAAAD9/xIABAAFAAEAAAD9/xEABAAFAAEAAAD9/xAABAAFAAEAAAD9/w8ABAAFAAEAAAD9/w0ABAAFAAEAAAD9/wwABAAFAAEAAAD8/xMABAAFAAEAAAD8/xIABAAFAAEAAAD8/xEABAAFAAEAAAD8/xAABAAFAAEAAAD8/w8ABAAFAAEAAAD8/w0ABAAFAAEAAAD8/wwABAAFAAEAAAD7/xMABAAFAAEAAAD7/xIABAAFAAEAAAD7/xEABAAFAAEAAAD7/xAABAAFAAEAAAD7/w8ABAAFAAEAAAD7/w0ABAAFAAEAAAD7/wwABAAFAAEAAAD6/xMABAAFAAEAAAD6/xIABAAFAAEAAAD6/xEABAAFAAEAAAD6/xAABAAFAAEAAAD6/w8ABAAFAAEAAAD6/w4ABAAFAAEAAAD6/wwABAAFAAEAAAD5/xMABAAFAAEAAAD5/xIABAAFAAEAAAD5/xEABAAFAAEAAAD5/xAABAAFAAEAAAD5/w8ABAAFAAEAAAD5/w4ABAAFAAEAAAASABAABAAFAAEAAAASAA8ABAAFAAEAAAASAA4ABAAFAAEAAAASAA0ABAAFAAEAAAASAAwABAAFAAEAAAASAAsABAAFAAEAAAASAAoABAAFAAEAAAASAAkABAAFAAEAAAASAAgABAAFAAEAAAASAAcABAAFAAEAAAASAAYABAAFAAEAAAASAAUABAAFAAEAAAASAAQABAAFAAEAAAASAAMABAAFAAEAAAASAAIABAAFAAEAAAASAAEABAAFAAEAAAASAAAABAAFAAEAAAASAP//BAAFAAEAAAASAP7/BAAFAAEAAAASAP3/BAAFAAEAAAASAPz/BAAFAAEAAAASAPv/BAAFAAEAAAASAPr/BAAFAAEAAAARABAABAAFAAEAAAARAA8ABAAFAAEAAAARAA4ABAAFAAEAAAARAA0ABAAFAAEAAAARAAwABAAFAAEAAAARAAsABAAFAAEAAAARAAoABAAFAAEAAAARAAkABAAFAAEAAAARAAgABAAFAAEAAAARAAcABAAFAAEAAAARAAYABAAFAAEAAAARAAUABAAFAAEAAAARAAQABAAFAAEAAAARAAMABAAFAAEAAAARAAIABAAFAAEAAAARAAEABAAFAAEAAAARAAAABAAFAAEAAAARAP//BAAFAAEAAAARAP7/BAAFAAEAAAARAP3/BAAFAAEAAAARAPz/BAAFAAEAAAARAPv/BAAFAAEAAAARAPr/BAAFAAEAAAASABMABAAFAAEAAAASABIABAAFAAEAAAASABEABAAFAAEAAAARABMABAAFAAEAAAARABIABAAFAAEAAAARABEABAAFAAEAAAA=")
@@ -92,9 +121,10 @@ gravity_scale = 0.0
 position = Vector2(13, 40)
 texture = ExtResource("4_w37o8")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+script = SubResource("GDScript_jxplj")
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+[node name="CenterContainer" type="CenterContainer" parent="MenuLayer"]
 layout_direction = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -110,10 +140,10 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MenuLayer/CenterContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuLayer/CenterContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -122,34 +152,150 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="Menu" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
+[node name="Menu" type="VBoxContainer" parent="MenuLayer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="StartButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
+[node name="StartButton" parent="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
 layout_mode = 2
 script = SubResource("GDScript_w37o8")
 text = "Start"
 
-[node name="ControlsButtons" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
+[node name="ControlsButtons" parent="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
 layout_mode = 2
 text = "Controls"
 
-[node name="FullscreenButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
+[node name="FullscreenButton" parent="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
 layout_mode = 2
 script = ExtResource("6_w37o8")
 
-[node name="ExitButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
+[node name="ExitButton" parent="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
 layout_mode = 2
 script = ExtResource("7_w37o8")
 text = "Exit Game"
 
+[node name="ControlsLayer" type="CanvasLayer" parent="."]
+visible = false
+script = SubResource("GDScript_un03f")
+
+[node name="CenterContainer" type="CenterContainer" parent="ControlsLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="ControlsLayer/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlsLayer/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("8_un03f")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Move around"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("9_jxplj")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Shoot around"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("10_rov77")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Make boom"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+text = "(requires 10 mana)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="custom_button" parent="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer" instance=ExtResource("6_g3ifd")]
+layout_mode = 2
+text = "Back"
+
 [node name="PanelContainer" type="PanelContainer" parent="."]
-offset_left = -86.0
-offset_top = -48.0
-offset_right = -20.0
-offset_bottom = -32.0
+offset_left = -84.0
+offset_top = -43.0
+offset_right = -18.0
+offset_bottom = -27.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -160,6 +306,10 @@ text = "Highscore: 0"
 vertical_alignment = 1
 script = SubResource("GDScript_2fv6y")
 
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/StartButton" to="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/StartButton" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" to="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/ExitButton" to="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/ExitButton" method="_on_pressed"]
+[connection signal="pressed" from="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/StartButton" to="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/StartButton" method="_on_pressed"]
+[connection signal="pressed" from="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/ControlsButtons" to="MenuLayer" method="toggle_visible"]
+[connection signal="pressed" from="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/ControlsButtons" to="ControlsLayer" method="toggle_visible"]
+[connection signal="pressed" from="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" to="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" method="_on_pressed"]
+[connection signal="pressed" from="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/ExitButton" to="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/ExitButton" method="_on_pressed"]
+[connection signal="pressed" from="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/custom_button" to="MenuLayer" method="toggle_visible"]
+[connection signal="pressed" from="ControlsLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/custom_button" to="ControlsLayer" method="toggle_visible"]
