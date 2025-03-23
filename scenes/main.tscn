@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cfchqeyg1vtjv" path="res://assets/ui/manabar-bg.png" id="8_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://nvsa1hfsclia" path="res://characters/enemy/enemy.tscn" id="9_85g3d"]
 [ext_resource type="Texture2D" uid="uid://e7wh4qmjrdx5" path="res://assets/ui/manabar.png" id="9_eb6dy"]
-[ext_resource type="PackedScene" uid="uid://bbdfgudxbjle5" path="res://menus/options_menu/OptionsMenu.tscn" id="12_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://bbdfgudxbjle5" path="res://menus/pause_menu/PauseMenu.tscn" id="12_eb6dy"]
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true

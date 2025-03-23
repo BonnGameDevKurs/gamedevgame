@@ -136,7 +136,7 @@ script = ExtResource("6_w37o8")
 [node name="ExitButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("6_g3ifd")]
 layout_mode = 2
 script = ExtResource("7_w37o8")
-text = "Exit"
+text = "Exit Game"
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/StartButton" to="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/StartButton" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" to="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" method="_on_pressed"]

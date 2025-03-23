@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bbdfgudxbjle5"]
 
-[ext_resource type="Script" uid="uid://cldmwib113sm3" path="res://menus/options_menu/options_menu.gd" id="1_kv6tk"]
+[ext_resource type="Script" uid="uid://cldmwib113sm3" path="res://menus/pause_menu/pause_menu.gd" id="1_kv6tk"]
 [ext_resource type="PackedScene" uid="uid://oxf1q5fue6eu" path="res://misc/custom_button/custom_button.tscn" id="2_ftwbq"]
 [ext_resource type="Script" uid="uid://bmsvujjtyt73y" path="res://menus/button_scripts/exit_button.gd" id="3_378i5"]
 [ext_resource type="Script" uid="uid://7nblh0fnn86q" path="res://menus/button_scripts/fullscreen_button.gd" id="3_shqvc"]
@@ -16,7 +16,7 @@ func _on_pressed():
 	get_tree().call_deferred(\"change_scene_to_file\", \"res://menus/start_menu/start_menu.tscn\")
 "
 
-[node name="OptionsLayer" type="CanvasLayer"]
+[node name="PauseLayer" type="CanvasLayer"]
 process_mode = 3
 layer = 5
 visible = false
@@ -46,6 +46,10 @@ theme_override_constants/margin_bottom = 3
 [node name="Menu" type="VBoxContainer" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
+[node name="BackButton" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("2_ftwbq")]
+layout_mode = 2
+text = "Back"
+
 [node name="MainMenuButton" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("2_ftwbq")]
 layout_mode = 2
 script = SubResource("GDScript_shqvc")
@@ -58,8 +62,9 @@ script = ExtResource("3_shqvc")
 [node name="ExitButton" parent="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu" instance=ExtResource("2_ftwbq")]
 layout_mode = 2
 script = ExtResource("3_378i5")
-text = "Exit"
+text = "Exit Game"
 
+[connection signal="pressed" from="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/BackButton" to="." method="toggle"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/MainMenuButton" to="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/MainMenuButton" method="_on_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" to="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/FullscreenButton" method="_on_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/ExitButton" to="PanelContainer/CenterContainer/PanelContainer/MarginContainer/Menu/ExitButton" method="_on_pressed"]
