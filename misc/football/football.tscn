@@ -6,6 +6,7 @@
 radius = 5.5
 
 [node name="Football" type="RigidBody2D"]
+y_sort_enabled = true
 collision_layer = 16
 collision_mask = 31
 gravity_scale = 0.0
