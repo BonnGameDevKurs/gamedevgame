@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1kc1ujkcgs2l"
-path="res://.godot/imported/keg.png-678f593692c419265b63a55a7708ae7e.ctex"
+uid="uid://cycu8rpn6dbm5"
+path="res://.godot/imported/football.png-e37d7f8226e4119f817b28e0d848d881.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/keg.png"
-dest_files=["res://.godot/imported/keg.png-678f593692c419265b63a55a7708ae7e.ctex"]
+source_file="res://assets/football.png"
+dest_files=["res://.godot/imported/football.png-e37d7f8226e4119f817b28e0d848d881.ctex"]
 
 [params]
 
