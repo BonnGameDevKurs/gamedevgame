@@ -226,7 +226,8 @@ func _explosion_kill():
 			continue
 		box.get_parent().queue_free()
 		var kills = StatsHolder.kill_counter + 1
-		StatsHolderClass.update_stat(StatsHolderClass.Stats.KILLCOUNTER, kills)
+		var stats_holder: StatsHolderClass = $"/root/StatsHolder"
+		stats_holder.update_stat(stats_holder.Stats.KILLCOUNTER, kills)
 
 
 func _reset_ability_meter():
