@@ -3,6 +3,7 @@
 [ext_resource type="TileSet" uid="uid://o2pw3q66ur8l" path="res://assets/tilesets/grass_water_dirt/grass_water_dirt_tileset.tres" id="1_g3ifd"]
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="2_w37o8"]
 [ext_resource type="Script" uid="uid://wblgqtpa5x13" path="res://menus/start_menu/static_player.gd" id="3_2fv6y"]
+
 [ext_resource type="Texture2D" uid="uid://b1kc1ujkcgs2l" path="res://assets/keg.png" id="4_r7mew"]
 [ext_resource type="PackedScene" uid="uid://oxf1q5fue6eu" path="res://misc/custom_button/custom_button.tscn" id="6_g3ifd"]
 [ext_resource type="Script" uid="uid://7nblh0fnn86q" path="res://menus/button_scripts/fullscreen_button.gd" id="6_w37o8"]
@@ -76,14 +77,14 @@ z_index = 1
 position = Vector2(23, 29)
 script = ExtResource("3_2fv6y")
 
-[node name="Keg2" type="RigidBody2D" parent="."]
+[node name="Football" type="RigidBody2D" parent="."]
 position = Vector2(131, 8)
 collision_mask = 15
 gravity_scale = 0.0
 
-[node name="Sprite2D2" type="Sprite2D" parent="Keg2"]
+[node name="Sprite2D" type="Sprite2D" parent="Football"]
 position = Vector2(13, 40)
-texture = ExtResource("4_r7mew")
+texture = ExtResource("4_w37o8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

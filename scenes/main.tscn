@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="1_6gmmr"]
 [ext_resource type="TileSet" uid="uid://o2pw3q66ur8l" path="res://assets/tilesets/grass_water_dirt/grass_water_dirt_tileset.tres" id="1_81ydp"]
 [ext_resource type="Script" uid="uid://u04vv6qah2ac" path="res://scenes/main.gd" id="1_tefeu"]
-[ext_resource type="PackedScene" uid="uid://bkhcmswqnxk1i" path="res://misc/keg/keg.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bkhcmswqnxk1i" path="res://misc/football/football.tscn" id="3_tbgi4"]
 [ext_resource type="FontFile" uid="uid://bug4bpkhu10u5" path="res://assets/nokiafc22.ttf" id="5_tipki"]
 [ext_resource type="Script" uid="uid://dg8iq2kypf2x6" path="res://scenes/ability_bar.gd" id="7_85g3d"]
 [ext_resource type="PackedScene" uid="uid://cj3rfysoalbsb" path="res://menus/death_screen/death_screen.tscn" id="7_o6xl0"]
@@ -35,31 +35,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0
 
-[node name="Keg" parent="." instance=ExtResource("3_tbgi4")]
-position = Vector2(94, 56)
-
-[node name="Enemy" parent="." instance=ExtResource("9_85g3d")]
-position = Vector2(61, 24)
-
-[node name="Keg2" parent="." instance=ExtResource("3_tbgi4")]
-position = Vector2(188, 112)
-
-[node name="Keg3" parent="." instance=ExtResource("3_tbgi4")]
-position = Vector2(60, 121)
-
-[node name="Keg4" parent="." instance=ExtResource("3_tbgi4")]
-position = Vector2(280, 51)
-
-[node name="Keg5" parent="." instance=ExtResource("3_tbgi4")]
-position = Vector2(227, 175)
-
-[node name="Keg6" parent="." instance=ExtResource("3_tbgi4")]
-position = Vector2(129, 167)
-
-[node name="Keg7" parent="." instance=ExtResource("3_tbgi4")]
-position = Vector2(169, 33)
-
-[node name="StatsLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="KillCounter" type="PanelContainer" parent="StatsLayer"]
 offset_left = 2.0
@@ -101,7 +77,29 @@ texture_under = ExtResource("8_ya4ey")
 texture_progress = ExtResource("9_eb6dy")
 script = ExtResource("7_85g3d")
 
-[node name="OptionsLayer" parent="." instance=ExtResource("12_eb6dy")]
+[node name="Enemy" parent="." instance=ExtResource("9_85g3d")]
+position = Vector2(61, 24)
+
+[node name="Football" parent="." instance=ExtResource("3_tbgi4")]
+position = Vector2(188, 112)
+
+[node name="Football2" parent="." instance=ExtResource("3_tbgi4")]
+position = Vector2(60, 121)
+
+[node name="Football3" parent="." instance=ExtResource("3_tbgi4")]
+position = Vector2(280, 51)
+
+[node name="Football4" parent="." instance=ExtResource("3_tbgi4")]
+position = Vector2(227, 175)
+
+[node name="Football5" parent="." instance=ExtResource("3_tbgi4")]
+position = Vector2(129, 167)
+
+[node name="Football6" parent="." instance=ExtResource("3_tbgi4")]
+position = Vector2(169, 33)
+
+[node name="Football7" parent="." instance=ExtResource("3_tbgi4")]
+position = Vector2(94, 56)
 
 [node name="DeathLayer" type="CanvasLayer" parent="."]
 layer = 6
