@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://dplnmxkaqw7qv"]
+[gd_scene load_steps=22 format=4 uid="uid://dplnmxkaqw7qv"]
 
 [ext_resource type="TileSet" uid="uid://q3sv4f0sexqr" path="res://assets/tilesets/background/background_tileset.tres" id="1_w37o8"]
 [ext_resource type="PackedScene" uid="uid://dn5pmqnms068s" path="res://characters/player/Player.tscn" id="2_w37o8"]
@@ -87,6 +87,43 @@ script/source = "extends Label
 func _ready():
 	self.text = \"Highscore: %s\" % str(StatsHolder.highscore)
 "
+
+[sub_resource type="Animation" id="Animation_jxplj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8, -84)]
+}
+
+[sub_resource type="Animation" id="Animation_un03f"]
+resource_name = "intro_name"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(4.46667, 4.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-8, -84), Vector2(-8, -26)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rov77"]
+_data = {
+&"RESET": SubResource("Animation_jxplj"),
+&"intro_name": SubResource("Animation_un03f")
+}
 
 [node name="Main" type="Node2D"]
 script = SubResource("GDScript_rov77")
@@ -305,6 +342,22 @@ layout_mode = 2
 text = "Highscore: 0"
 vertical_alignment = 1
 script = SubResource("GDScript_2fv6y")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -8.0
+offset_top = -84.0
+offset_right = 202.0
+offset_bottom = -69.0
+theme_override_font_sizes/font_size = 12
+text = "WUZEL'S BIZARRE ADVENTURE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_rov77")
+}
+autoplay = "intro_name"
 
 [connection signal="pressed" from="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/StartButton" to="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/StartButton" method="_on_pressed"]
 [connection signal="pressed" from="MenuLayer/CenterContainer/PanelContainer/MarginContainer/Menu/ControlsButtons" to="MenuLayer" method="toggle_visible"]
