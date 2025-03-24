@@ -18,5 +18,8 @@ func init():
 
 func _restart_game():
 	label_highscore.visible = false
+	stats_holder.update_stat(
+			StatsHolderClass.Stats.KILLCOUNTER,
+			0)
 	get_tree().paused = false
 	get_tree().reload_current_scene()
